@@ -1,0 +1,14 @@
+#ifndef BANDWIDTH_H
+#define BANDWIDTH_H
+#include "channel.h"
+class Bandwidth
+{
+public:
+	Bandwidth(int l_a, int p_a, int k_a);
+private:
+	const int l_amount, p_amount, k_amount;
+	Channel* channels[20];
+};
+
+#endif
+
