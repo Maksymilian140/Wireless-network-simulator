@@ -4,11 +4,9 @@
 class ChannelRequestEvent : public Event
 {
 public:
-	ChannelRequestEvent(std::chrono::high_resolution_clock::time_point e_t, Network* n, Buffer* bu, Bandwidth* ba);
+	ChannelRequestEvent(std::chrono::high_resolution_clock::time_point e_t, Network* n);
 	void execute() override;
 private:
-	Buffer* buffer;
-	Bandwidth* bandwidth;
 	const int request_frequency = 200;
 };
 #endif

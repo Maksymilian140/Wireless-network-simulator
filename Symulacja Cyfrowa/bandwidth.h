@@ -6,6 +6,7 @@ class Bandwidth
 public:
 	Bandwidth(int l_a, int p_a, int k_a);
 	bool add_to_channel(Client* c);
+	void clear_radar();
 private:
 	const int l_amount, p_amount, k_amount;
 	Channel* channels[20];

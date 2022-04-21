@@ -30,8 +30,15 @@ bool Bandwidth::add_to_channel(Client* c) {
 	for (int i = group_indexes.first; i < group_indexes.second; i++) {
 		if (channels[i]->is_free()) {
 			channels[i]->add_client(c);
-			return true;
+			if (c->get_group() != 1) return true;
 		}
 	}
-	return false;
+	if (c->get_group() == 1) return true;
+	else return false;
+}
+
+void Bandwidth::clear_radar() {
+	for (int i = 0; i < p_amount; i++) {
+		channels[i]->release();
+	}
 }

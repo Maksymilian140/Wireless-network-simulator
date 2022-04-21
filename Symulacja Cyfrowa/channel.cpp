@@ -14,3 +14,8 @@ bool Channel::is_free() {
 	if (serviced_client == nullptr) return true;
 	else return false;
 }
+
+void Channel::release() {
+	delete serviced_client;
+	serviced_client = nullptr;
+}
