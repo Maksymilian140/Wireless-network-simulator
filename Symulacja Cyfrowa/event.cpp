@@ -1,8 +1,9 @@
 #include "event.h"
+#include <chrono>
 
-Event::Event(int e_t) : event_time(e_t) {}
+Event::Event(std::chrono::high_resolution_clock::time_point e_t, Network* n) : event_time(e_t), network(n) {}
 
-time_t Event::get_time() {
+std::chrono::high_resolution_clock::time_point Event::get_time() {
 	return event_time;
 }
 

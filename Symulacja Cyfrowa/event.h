@@ -2,20 +2,23 @@
 #define EVENT_H
 #include<functional>
 #include<set>
+#include<chrono>
+#include"network.h"
 
 class Event
 {
 public:
-	Event(int e_t);
-	time_t get_time();
+	Event(std::chrono::high_resolution_clock::time_point e_t, Network* n);
+	std::chrono::high_resolution_clock::time_point get_time();
 	void virtual execute() = 0;
 	bool operator<(Event*);
 	bool operator>(Event*);
 	bool operator==(Event*);
 	
-	typedef std::multiset<Event*> event_list;	
+	std::multiset<Event*> event_list;	
 protected:
-	time_t event_time;
+	std::chrono::high_resolution_clock::time_point event_time;
+	Network* network;
 };
 
 #endif

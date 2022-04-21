@@ -4,9 +4,11 @@
 class Client
 {
 public:
-	Client(int g, int s_t);
+	Client(int g, float s_t);
+	int get_group(), get_service_time();
 private:
-	const int group, service_time;
+	const int group;
+	const float service_time;
 };
 
 #endif

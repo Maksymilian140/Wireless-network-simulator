@@ -143,19 +143,25 @@
     <ClCompile Include="bandwidth.cpp" />
     <ClCompile Include="buffer.cpp" />
     <ClCompile Include="channel.cpp" />
+    <ClCompile Include="channel_request_event.cpp" />
     <ClCompile Include="client.cpp" />
+    <ClCompile Include="end_of_service_event.cpp" />
     <ClCompile Include="event.cpp" />
     <ClCompile Include="network.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="simulator.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="arrival_event.h" />
     <ClInclude Include="bandwidth.h" />
     <ClInclude Include="buffer.h" />
     <ClInclude Include="channel.h" />
+    <ClInclude Include="channel_request_event.h" />
     <ClInclude Include="client.h" />
+    <ClInclude Include="end_of_service_event.h" />
     <ClInclude Include="event.h" />
     <ClInclude Include="network.h" />
+    <ClInclude Include="simulator.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

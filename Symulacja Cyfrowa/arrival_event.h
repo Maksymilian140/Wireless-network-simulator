@@ -4,7 +4,7 @@
 class ArrivalEvent : public Event
 {
 public:
-	ArrivalEvent(time_t t);
+	ArrivalEvent(time_t t, Network* n);
 	void execute() override;
 };
 #endif
