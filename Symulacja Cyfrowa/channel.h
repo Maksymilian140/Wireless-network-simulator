@@ -9,6 +9,7 @@ public:
 	void add_client(Client *c);
 	bool is_free();
 	void release();
+	Client* get_client();
 private:
 	Client* serviced_client;
 	const int client_group;

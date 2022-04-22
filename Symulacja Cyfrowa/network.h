@@ -14,6 +14,9 @@ public:
 	bool add_to_bandwidth(Client* c);
 	Client* buffer_pop();
 	void bandwidth_clear_radar();
+	bool buffer_is_occupied();
+	void add_to_buffer(Client* c);
+	void remove_from_bandwidth(Client* c);
 private:
 	Bandwidth* bandwidth;
 	Buffer* buffer;

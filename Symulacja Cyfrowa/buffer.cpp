@@ -33,3 +33,8 @@ Client* Buffer::get_first() {
 		return queue_of_clients.front();
 	}
 }
+
+bool Buffer::is_occupied() {
+	if (queue_of_clients.size() == size) return true;
+	else return false;
+}

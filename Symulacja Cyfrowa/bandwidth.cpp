@@ -42,3 +42,12 @@ void Bandwidth::clear_radar() {
 		channels[i]->release();
 	}
 }
+
+void Bandwidth::remove_user(Client* c) {
+	for (int i = p_amount - 1; i < k_amount; i++) {
+		if (channels[i]->get_client() == c) {
+			channels[i]->release();
+			return;
+		}
+	}
+}

@@ -10,6 +10,7 @@ public:
 	void add(Client*);
 	Client* pop();
 	Client* get_first();
+	bool is_occupied();
 private:
 	std::queue<Client*>queue_of_clients;
 	const int size;

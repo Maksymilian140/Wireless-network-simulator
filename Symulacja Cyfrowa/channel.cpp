@@ -19,3 +19,7 @@ void Channel::release() {
 	delete serviced_client;
 	serviced_client = nullptr;
 }
+
+Client* Channel::get_client() {
+	return serviced_client;
+}

@@ -1,4 +1,5 @@
 #include "user_activation_event.h"
+#include "user_end_of_service_event.h"
 
 UserActivationEvent::UserActivationEvent(std::chrono::high_resolution_clock::time_point e_t, Network* n) :Event(e_t, n) {}
 
@@ -11,10 +12,17 @@ void UserActivationEvent::execute() {
 	if (is_added) {
 		std::chrono::high_resolution_clock::time_point event_t = std::chrono::high_resolution_clock::now();
 		event_t += std::chrono::microseconds(rand() % 5000 + 1000);
-		Event* next_request_event = new UserEndOfServiceEvent(event_t, network);
+		Event* next_request_event = new UserEndOfServiceEvent(event_t, network, user);
 		event_list.insert(next_request_event);
 	}
 	else {
-		network->add
+		// if buffer is occupied then drop the user else add him to the buffer
+		if (network->buffer_is_occupied()) delete user;
+		else network->add_to_buffer(user);
+		// plan next user activation event
+		std::chrono::high_resolution_clock::time_point event_t = std::chrono::high_resolution_clock::now();
+		event_t += std::chrono::microseconds(rand() % 7000 + 1000);
+		Event* next_request_event = new UserActivationEvent(event_t, network);
+		event_list.insert(next_request_event);
 	}
 }
