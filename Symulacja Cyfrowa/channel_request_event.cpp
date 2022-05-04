@@ -13,8 +13,7 @@ void ChannelRequestEvent::execute() {
 		std::chrono::high_resolution_clock::time_point event_t = std::chrono::high_resolution_clock::now();
 		event_t += std::chrono::microseconds(client->get_service_time());
 		Event* service_event;
-		if(client->get_group() == 1) service_event = new RadarEndOfServiceEvent(event_t, network);
-		else 
+		service_event = new RadarEndOfServiceEvent(event_t, network); 
 		event_list.insert(service_event);
 	}
 	// ether way plan next channel request event
