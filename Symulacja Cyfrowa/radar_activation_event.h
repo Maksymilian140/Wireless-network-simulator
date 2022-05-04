@@ -3,7 +3,7 @@
 #include"event.h"
 class RadarActivationEvent : public Event{
 public:
-	RadarActivationEvent(std::chrono::high_resolution_clock::time_point t, Network* n);
+	RadarActivationEvent(float t, Network* n);
 	void execute() override;
 };
 #endif

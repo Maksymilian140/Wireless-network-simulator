@@ -8,6 +8,7 @@ public:
 	bool add_to_channel(Client* c);
 	void clear_radar();
 	void remove_user(Client* c);
+	void clear();
 private:
 	const int l_amount, p_amount, k_amount;
 	Channel* channels[20];

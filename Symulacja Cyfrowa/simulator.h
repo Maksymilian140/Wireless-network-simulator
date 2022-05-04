@@ -6,9 +6,8 @@ class Simulator
 {
 public:
 	Simulator(int l_a, int p_a, int k_a, int s, float t_t);
-	void RunSimulation();
+	void RunSimulation(float time);
 private:
-	std::chrono::high_resolution_clock::time_point clock;
 	Network* network;
 };
 

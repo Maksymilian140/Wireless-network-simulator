@@ -38,3 +38,9 @@ bool Buffer::is_occupied() {
 	if (queue_of_clients.size() == size) return true;
 	else return false;
 }
+
+void Buffer::clear() {
+	while (!queue_of_clients.empty()) {
+		queue_of_clients.pop();
+	}
+}

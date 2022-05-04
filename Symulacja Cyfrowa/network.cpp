@@ -1,4 +1,5 @@
-#include "Network.h"
+#include "network.h"
+#include "event.h"
 
 Network::Network(int l_a, int p_a, int k_a, int s, float t_t){
 	bandwidth = new Bandwidth(l_a, p_a, k_a);
@@ -39,4 +40,9 @@ void Network::add_to_buffer(Client* c) {
 
 void Network::remove_from_bandwidth(Client* c) {
 	bandwidth->remove_user(c);
+}
+
+void Network::initialize() {
+	bandwidth->clear();
+	buffer->clear();
 }

@@ -51,3 +51,9 @@ void Bandwidth::remove_user(Client* c) {
 		}
 	}
 }
+
+void Bandwidth::clear() {
+	for (int i = 0; i < 20; i++) {
+		if (!channels[i]->is_free()) channels[i]->release();
+	}
+}

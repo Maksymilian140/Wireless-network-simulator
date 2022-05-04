@@ -5,7 +5,7 @@
 class RadarEndOfServiceEvent : public Event
 {
 public:
-	RadarEndOfServiceEvent(std::chrono::high_resolution_clock::time_point t, Network* n);
+	RadarEndOfServiceEvent(float t, Network* n);
 	void execute() override;
 };
 #endif

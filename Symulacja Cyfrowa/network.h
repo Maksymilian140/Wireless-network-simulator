@@ -4,7 +4,6 @@
 #include "buffer.h"
 #include "channel.h"
 #include "bandwidth.h"
-#include <ctime>
 
 class Network {
 public:
@@ -17,10 +16,11 @@ public:
 	bool buffer_is_occupied();
 	void add_to_buffer(Client* c);
 	void remove_from_bandwidth(Client* c);
+	void initialize();
 private:
 	Bandwidth* bandwidth;
 	Buffer* buffer;
-	time_t main_time, u1_time, u2_time, u3_time;
+	float main_time, u1_time, u2_time, u3_time;
 
 };
 
