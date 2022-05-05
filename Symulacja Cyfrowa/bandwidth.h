@@ -4,7 +4,7 @@
 class Bandwidth
 {
 public:
-	Bandwidth(int l_a, int p_a, int k_a);
+	Bandwidth(int l_amount, int p_amount, int k_amount);
 	bool add_to_channel(Client* c);
 	void clear_radar();
 	void remove_user(Client* c);

@@ -5,7 +5,7 @@
 class Buffer
 {
 public:
-	Buffer(int s, float t_t);
+	Buffer(int size, float try_time);
 
 	void add(Client*);
 	Client* pop();

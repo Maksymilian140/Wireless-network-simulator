@@ -3,7 +3,7 @@
 #include"event.h"
 class RadarActivationEvent : public Event{
 public:
-	RadarActivationEvent(float t, Network* n);
+	RadarActivationEvent(float event_time, Network* network);
 	void execute() override;
 };
 #endif

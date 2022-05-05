@@ -1,6 +1,6 @@
 #include "event.h"
 
-Event::Event(float e_t, Network* n) : event_time(e_t), network(n) {}
+Event::Event(float event_time, Network* network) : event_time(event_time), network(network) {}
 
 float Event::get_time() {
 	return event_time;

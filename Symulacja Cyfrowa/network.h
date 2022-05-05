@@ -7,7 +7,7 @@
 
 class Network {
 public:
-	Network(int l_a, int p_a, int k_a, int s, float t_t);
+	Network(int l_amount, int p_amount, int k_amount, int size, float try_time);
 	Client* generate_client(int group);
 	Client* get_first_from_buffer();
 	bool add_to_bandwidth(Client* c);
@@ -17,11 +17,10 @@ public:
 	void add_to_buffer(Client* c);
 	void remove_from_bandwidth(Client* c);
 	void initialize();
+	float clock;
 private:
 	Bandwidth* bandwidth;
 	Buffer* buffer;
-	float main_time, u1_time, u2_time, u3_time;
-
 };
 
 #endif

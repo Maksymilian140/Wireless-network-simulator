@@ -1,6 +1,6 @@
 #include "bandwidth.h"
 #include <utility>
-Bandwidth::Bandwidth(int l_a, int k_a, int p_a) : l_amount(l_a), k_amount(k_a), p_amount(p_a) {
+Bandwidth::Bandwidth(int l_amount, int k_amount, int p_amount) : l_amount(l_amount), k_amount(k_amount), p_amount(p_amount) {
 	int u3_channel_amount = k_amount - p_amount - l_amount;
 	for (int i = 0; i < p_amount; i++) {
 		channels[i] = new Channel(1);

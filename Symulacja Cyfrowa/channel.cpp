@@ -1,6 +1,6 @@
 #include "channel.h"
 
-Channel::Channel(int c_g) : client_group(c_g) {}
+Channel::Channel(int client_group) : client_group(client_group) {}
 
 int Channel::get_client_group() {
 	return client_group;

@@ -1,13 +1,13 @@
 #include "radar_end_of_service_event.h"
 #include "radar_activation_event.h"
 
-RadarEndOfServiceEvent::RadarEndOfServiceEvent(float t, Network* n) : Event(t, n) {}
+RadarEndOfServiceEvent::RadarEndOfServiceEvent(float event_time, Network* network) : Event(event_time, network) {}
 
 void RadarEndOfServiceEvent::execute() {
 	// releasing users in all radar specified channels
 	network->bandwidth_clear_radar();
 	// generating random time of next event in range of 1-5 ms
-	float event_t = rand() % 5000 + 1000;
+	float event_t = (rand() % 5000 + 1000) + network->clock;
 	Event* activation_event = new RadarActivationEvent(event_t, network);
 	event_list.insert(activation_event);
 }

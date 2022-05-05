@@ -1,9 +1,9 @@
 #include "network.h"
 #include "event.h"
 
-Network::Network(int l_a, int p_a, int k_a, int s, float t_t){
-	bandwidth = new Bandwidth(l_a, p_a, k_a);
-	buffer = new Buffer(s, t_t);
+Network::Network(int l_amount, int p_amount, int k_amount, int size, float try_time) {
+	bandwidth = new Bandwidth(l_amount, p_amount, k_amount);
+	buffer = new Buffer(size, try_time);
 }
 
 Client* Network::generate_client(int group) {

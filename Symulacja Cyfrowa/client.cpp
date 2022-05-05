@@ -1,6 +1,6 @@
 #include "client.h"
 
-Client::Client(int g, float s_t) : group(g), service_time(s_t) {}
+Client::Client(int group, float service_time) : group(group), service_time(service_time) {}
 
 int Client::get_group() {
 	return group;

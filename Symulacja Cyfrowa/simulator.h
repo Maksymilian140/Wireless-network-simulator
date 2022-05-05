@@ -5,7 +5,7 @@
 class Simulator
 {
 public:
-	Simulator(int l_a, int p_a, int k_a, int s, float t_t);
+	Simulator(int l_amount, int p_amount, int k_amount, int size, float try_time);
 	void RunSimulation(float time);
 private:
 	Network* network;

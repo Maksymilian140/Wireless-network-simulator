@@ -7,7 +7,7 @@
 class Event
 {
 public:
-	Event(float e_t, Network* n);
+	Event(float event_time, Network* network);
 	float get_time();
 	void virtual execute() = 0;
 	bool operator<(Event*);

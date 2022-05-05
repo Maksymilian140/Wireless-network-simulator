@@ -3,7 +3,7 @@
 #include"event.h"
 class UserEndOfServiceEvent : public Event {
 public:
-	UserEndOfServiceEvent(float t, Network* n, Client* u_t_r);
+	UserEndOfServiceEvent(float event_time, Network* network, Client* user_to_remove);
 	void execute() override;
 private:
 	Client* user_to_remove;

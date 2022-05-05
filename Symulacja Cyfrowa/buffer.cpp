@@ -1,7 +1,7 @@
 #include "buffer.h"
 #include<iostream>
 
-Buffer::Buffer(int s, float t_t) : size(s), try_time(t_t) {}
+Buffer::Buffer(int size, float try_time) : size(size), try_time(try_time) {}
 
 void Buffer::add(Client* c) {
 	if (queue_of_clients.size() < size) {
