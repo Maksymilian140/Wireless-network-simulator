@@ -2,6 +2,7 @@
 #define EVENT_H
 #include<functional>
 #include<set>
+#include<iostream>
 #include"network.h"
 
 class Event

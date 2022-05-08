@@ -1,10 +1,10 @@
 ﻿#include <iostream>
-#include "Network.h"
+#include "simulator.h"
 
 using namespace std;
 
 int main()
 {
-	cout << "Hello World!" << endl;
-	return 0;
+	Simulator simulation(10, 20, 5, 5, 200);
+
 }

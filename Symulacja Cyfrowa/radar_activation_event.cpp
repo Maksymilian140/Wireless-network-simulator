@@ -5,6 +5,7 @@ RadarActivationEvent::RadarActivationEvent(float event_time, Network* network) :
 
 void RadarActivationEvent::execute() {
 	// generate new radar user and add him to the channels
+	std::cout << "Time: " << network->clock << " || U1 " << " is activated" << std::endl;
 	Client* radar = network->generate_client(1);
 	network->add_to_bandwidth(radar);
 	// plan end of service event for radar add it to eventlist
