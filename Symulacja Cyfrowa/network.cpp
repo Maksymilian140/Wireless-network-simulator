@@ -40,6 +40,7 @@ void Network::add_to_buffer(Client* c) {
 
 void Network::remove_from_bandwidth(Client* c) {
 	bandwidth->remove_user(c);
+	delete c;
 }
 
 void Network::initialize() {

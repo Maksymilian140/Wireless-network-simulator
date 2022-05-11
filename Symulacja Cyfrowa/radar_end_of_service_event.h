@@ -5,7 +5,9 @@
 class RadarEndOfServiceEvent : public Event
 {
 public:
-	RadarEndOfServiceEvent(float event_time, Network* network);
+	RadarEndOfServiceEvent(float event_time, Network* network, EventList* event_list);
 	void execute() override;
+private:
+	EventList* event_list = nullptr;
 };
 #endif

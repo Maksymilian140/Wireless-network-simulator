@@ -15,7 +15,7 @@ public:
 	bool operator>(Event*);
 	bool operator==(Event*);
 	
-	static std::multiset<Event*> event_list;	
+	typedef std::multiset<Event*, std::function<bool(Event*, Event*)>> EventList;	
 protected:
 	float event_time;
 	Network* network;

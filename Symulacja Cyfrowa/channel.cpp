@@ -1,6 +1,8 @@
 #include "channel.h"
 
-Channel::Channel(int client_group) : client_group(client_group) {}
+Channel::Channel(int client_group) : client_group(client_group) {
+	serviced_client = nullptr;
+}
 
 int Channel::get_client_group() {
 	return client_group;
@@ -16,7 +18,6 @@ bool Channel::is_free() {
 }
 
 void Channel::release() {
-	delete serviced_client;
 	serviced_client = nullptr;
 }
 
