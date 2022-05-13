@@ -1,7 +1,7 @@
 #include "network.h"
 #include "event.h"
 
-Network::Network(int l_amount, int p_amount, int k_amount, int size, float try_time) {
+Network::Network(int l_amount, int p_amount, int k_amount, int size, int try_time) {
 	bandwidth = new Bandwidth(l_amount, p_amount, k_amount);
 	buffer = new Buffer(size, try_time);
 }

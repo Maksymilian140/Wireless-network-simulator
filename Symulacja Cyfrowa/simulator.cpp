@@ -2,15 +2,16 @@
 #include "radar_activation_event.h"
 #include "user_activation_event.h"
 #include <iostream>
+#include <spdlog/spdlog.h>
 
-Simulator::Simulator(int l_amount, int p_amount, int k_amount, int size, float try_time) {
+Simulator::Simulator(int l_amount, int p_amount, int k_amount, int size, int try_time) {
 	network = new Network(l_amount, p_amount, k_amount, size, try_time);
 }
 
-void Simulator::RunSimulation(float time, bool mode){
+void Simulator::RunSimulation(int time, bool mode){
 	network->clock = 0;
 	network->initialize();
-	std::cout << "Start of simulation: " << std::endl;
+	spdlog::info("##### Start of simulation #####");
 	auto compare_events = [](Event* left, Event* right) { return left->get_time() < right->get_time(); };
 	Event::EventList event_list(compare_events);
 	Event* first_radar_event = new RadarActivationEvent(rand() % 4000 + 1000, network, &event_list);
@@ -22,7 +23,6 @@ void Simulator::RunSimulation(float time, bool mode){
 		Event* exc_event = event_iterator._Ptr->_Myval;
 		event_list.erase(event_iterator);
 		network->clock = exc_event->get_time();
-		std::cout << "Simulation time: " << network->clock << std::endl;
 		exc_event->execute();
 		if (!mode) {
 			while (true) {

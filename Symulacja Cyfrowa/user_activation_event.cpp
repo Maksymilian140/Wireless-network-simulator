@@ -6,12 +6,12 @@ UserActivationEvent::UserActivationEvent(float event_time, Network* network, Eve
 void UserActivationEvent::execute() {
 	// draw group number and generate new user and add him to bandwidth
 	int group = rand() % 2 + 2;
-	std::cout << "Time: " << network->clock << " || U" << group << " is generated" << std::endl;
+	spdlog::info("Time: " + std::to_string(network->clock) + " ##### U" + std::to_string(group) + " is generated\n");
 	Client* user = network->generate_client(group);
 	bool is_added = network->add_to_bandwidth(user);
 	// if user succesfuly was added to the channel then plan end of service event for him
 	if (is_added) {
-		std::cout << "Time: " << network->clock << " || U" << user->get_group() << " is added to channel" << std::endl;
+		spdlog::info("Time: " + std::to_string(network->clock) + " ##### U" + std::to_string(user->get_group()) + " is added to channel\n");
 		float event_t = (rand() % 5000 + 1000) + network->clock;
 		Event* next_request_event = new UserEndOfServiceEvent(event_t, network, user);
 		event_list->insert(next_request_event);
@@ -20,7 +20,7 @@ void UserActivationEvent::execute() {
 		// if buffer is occupied then drop the user else add him to the buffer
 		if (network->buffer_is_occupied()) delete user;
 		else {
-			std::cout << "Time: " << network->clock << " || U" << group << " is added to buffer" << std::endl;
+			spdlog::info("Time: " + std::to_string(network->clock) + " ##### U" + std::to_string(group) + " is added to buffer\n");
 			network->add_to_buffer(user);
 		}
 	}

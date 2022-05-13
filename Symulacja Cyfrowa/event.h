@@ -1,9 +1,11 @@
 #ifndef EVENT_H
 #define EVENT_H
-#include<functional>
-#include<set>
-#include<iostream>
-#include"network.h"
+#include <functional>
+#include <set>
+#include <iostream>
+#include "network.h"
+#include <spdlog/spdlog.h>
+#include <string>
 
 class Event
 {
