@@ -47,3 +47,11 @@ void Network::initialize() {
 	bandwidth->clear();
 	buffer->clear();
 }
+
+void Network::bandwidth_print() {
+	bandwidth->print();
+}
+
+void Network::buffer_print() {
+	buffer->print();
+}

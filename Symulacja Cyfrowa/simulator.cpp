@@ -11,6 +11,8 @@ Simulator::Simulator(int l_amount, int p_amount, int k_amount, int size, int try
 void Simulator::RunSimulation(int time, bool mode){
 	network->clock = 0;
 	network->initialize();
+	if (!mode) spdlog::set_level(spdlog::level::debug);
+	spdlog::debug("Debuging enabled");
 	spdlog::info("##### Start of simulation #####");
 	auto compare_events = [](Event* left, Event* right) { return left->get_time() < right->get_time(); };
 	Event::EventList event_list(compare_events);
@@ -29,5 +31,6 @@ void Simulator::RunSimulation(int time, bool mode){
 				if (std::cin.get() == '\n') break;
 			}
 		}
+		network->bandwidth_print();
 	}
 }

@@ -17,6 +17,8 @@ public:
 	void add_to_buffer(Client* c);
 	void remove_from_bandwidth(Client* c);
 	void initialize();
+	void bandwidth_print();
+	void buffer_print();
 	int clock;
 private:
 	Bandwidth* bandwidth;

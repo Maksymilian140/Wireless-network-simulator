@@ -9,6 +9,7 @@ public:
 	void clear_radar();
 	void remove_user(Client* c);
 	void clear();
+	void print();
 private:
 	const int l_amount, p_amount, k_amount;
 	Channel* channels[20];

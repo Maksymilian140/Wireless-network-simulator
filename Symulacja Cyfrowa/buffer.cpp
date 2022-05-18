@@ -44,3 +44,7 @@ void Buffer::clear() {
 		queue_of_clients.pop();
 	}
 }
+
+void Buffer::print() {
+
+}

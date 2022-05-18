@@ -1,6 +1,7 @@
 #include "bandwidth.h"
 #include <utility>
 #include <iostream>
+#include <spdlog/spdlog.h>
 Bandwidth::Bandwidth(int l_amount, int p_amount, int k_amount) : l_amount(l_amount), p_amount(p_amount), k_amount(k_amount) {
 	int u3_channel_amount = k_amount - p_amount - l_amount;
 	for (int i = 0; i < p_amount; i++) {
@@ -57,4 +58,25 @@ void Bandwidth::clear() {
 	for (int i = 0; i < 20; i++) {
 		if (!channels[i]->is_free()) channels[i]->release();
 	}
+}
+
+void Bandwidth::print() {
+	std::string bottom_line = "#      #      #      #      #      #      #      #      #      #      #      #      #      #      #      #      #      #      #      #      #\n";
+	std::string top_line = "#############################################################################################################################################\n";
+	top_line += "#      #      #      #      #      #      #      #      #      #      #      #      #      #      #      #      #      #      #      #      #\n";
+	bottom_line += "#############################################################################################################################################\n";
+	std::string printed_bandwidth = "";
+	char group = '0';
+	for (int i = 0; i < 20; i++) {
+		if (channels[i]->get_client() != nullptr) {
+			group = static_cast<char>(channels[i]->get_client_group() + 48);
+			printed_bandwidth += "#  U";
+			printed_bandwidth += group;
+			printed_bandwidth += "  ";
+		}
+		else
+			printed_bandwidth += "#      ";
+	}
+	printed_bandwidth += "#\n";
+	spdlog::info('\n' + top_line + printed_bandwidth + bottom_line);
 }
