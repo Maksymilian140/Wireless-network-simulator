@@ -3,7 +3,7 @@
 #include <iostream>
 #include <spdlog/spdlog.h>
 Bandwidth::Bandwidth(int l_amount, int p_amount, int k_amount) : l_amount(l_amount), p_amount(p_amount), k_amount(k_amount) {
-	int u3_channel_amount = k_amount - p_amount - l_amount;
+	int u3_channel_amount = k_amount - l_amount;
 	for (int i = 0; i < p_amount; i++) {
 		channels[i] = new Channel(1);
 	}
