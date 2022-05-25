@@ -32,5 +32,6 @@ void Simulator::RunSimulation(int time, bool mode){
 			}
 		}
 		network->bandwidth_print();
+		network->buffer_print();
 	}
 }

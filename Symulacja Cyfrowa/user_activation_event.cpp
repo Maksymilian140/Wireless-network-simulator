@@ -25,7 +25,7 @@ void UserActivationEvent::execute() {
 		}
 	}
 	// plan next user activation event
-	float event_t = (rand() % 7000 + 1000) + network->clock;
+	float event_t = (rand() % 500 + 100) + network->clock;
 	Event* next_request_event = new UserActivationEvent(event_t, network, event_list);
 	event_list->insert(next_request_event);
 }
