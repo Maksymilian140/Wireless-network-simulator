@@ -5,4 +5,6 @@ UserEndOfServiceEvent::UserEndOfServiceEvent(float event_time, Network* network,
 void UserEndOfServiceEvent::execute() {
 	spdlog::info("Time: " + std::to_string(network->clock) + " ##### U" + std::to_string(user_to_remove->get_group()) + " is removed\n");
 	network->remove_from_bandwidth(user_to_remove);
+	network->bandwidth_print();
+	network->buffer_print();
 }

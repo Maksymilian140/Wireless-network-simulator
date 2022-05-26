@@ -15,7 +15,6 @@ void Buffer::add(Client* c) {
 
 Client* Buffer::pop() {
 	if (queue_of_clients.empty()) {
-		std::cout << "Queue is empty" << std::endl;
 		return nullptr;
 	}
 	else {
@@ -27,7 +26,6 @@ Client* Buffer::pop() {
 
 Client* Buffer::get_first() {
 	if (queue_of_clients.empty()) {
-		std::cout << "Queue is empty" << std::endl;
 		return nullptr;
 	}
 	else {
@@ -62,10 +60,11 @@ void Buffer::print() {
 			printed_buffer += "  ";
 			temp_queue.pop();
 		}
-		else
+		else {
 			for (int j = i; j < size; j++)
 				printed_buffer += "#      ";
 			break;
+		}
 	}
 	printed_buffer += "#\n";
 	spdlog::info('\n' + top_line + printed_buffer + bottom_line);

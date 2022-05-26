@@ -24,8 +24,10 @@ void UserActivationEvent::execute() {
 			network->add_to_buffer(user);
 		}
 	}
+	network->bandwidth_print();
+	network->buffer_print();
 	// plan next user activation event
-	float event_t = (rand() % 500 + 100) + network->clock;
+	float event_t = (rand() % 800 + 100) + network->clock;
 	Event* next_request_event = new UserActivationEvent(event_t, network, event_list);
 	event_list->insert(next_request_event);
 }

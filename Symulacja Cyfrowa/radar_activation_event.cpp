@@ -12,4 +12,6 @@ void RadarActivationEvent::execute() {
 	float event_t = 10000 + network->clock;
 	Event* next_request_event = new RadarEndOfServiceEvent(event_t, network, event_list);
 	event_list->insert(next_request_event);
+	network->bandwidth_print();
+	network->buffer_print();
 }
