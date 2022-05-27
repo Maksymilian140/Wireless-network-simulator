@@ -8,21 +8,21 @@
 class Network {
 public:
 	Network(int l_amount, int p_amount, int k_amount, int size, int try_time);
-	Client* generate_client(int group);
+	Client* GenerateClient(int group);
 	Client* get_first_from_buffer();
-	bool add_to_bandwidth(Client* c);
-	Client* buffer_pop();
-	void bandwidth_clear_radar();
-	bool buffer_is_occupied();
-	void add_to_buffer(Client* c);
-	void remove_from_bandwidth(Client* c);
-	void initialize();
-	void bandwidth_print();
-	void buffer_print();
-	int clock;
+	bool AddToBandwidth(Client* client);
+	Client* BufferPop();
+	void BandwidthClearRadar();
+	bool is_buffer_occupied();
+	void AddToBuffer(Client* client);
+	void RemoveFromBandwidth(Client* client);
+	void Initialize();
+	void BandwidthPrint();
+	void BufferPrint();
+	int clock_;
 private:
-	Bandwidth* bandwidth;
-	Buffer* buffer;
+	Bandwidth* bandwidth_;
+	Buffer* buffer_;
 };
 
 #endif

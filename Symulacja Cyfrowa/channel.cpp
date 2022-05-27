@@ -1,26 +1,26 @@
 #include "channel.h"
 
-Channel::Channel(int client_group) : client_group(client_group) {
-	serviced_client = nullptr;
+Channel::Channel(int client_group) : kClientGroup_(client_group) {
+	serviced_client_ = nullptr;
 }
 
 int Channel::get_client_group() {
-	return client_group;
+	return kClientGroup_;
 }
 
-void Channel::add_client(Client* c) {
-	serviced_client = c;
+void Channel::AddClient(Client* client) {
+	serviced_client_ = client;
 }
 
 bool Channel::is_free() {
-	if (serviced_client == nullptr) return true;
+	if (serviced_client_ == nullptr) return true;
 	else return false;
 }
 
-void Channel::release() {
-	serviced_client = nullptr;
+void Channel::Release() {
+	serviced_client_ = nullptr;
 }
 
 Client* Channel::get_client() {
-	return serviced_client;
+	return serviced_client_;
 }

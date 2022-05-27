@@ -2,65 +2,65 @@
 #include <utility>
 #include <iostream>
 #include <spdlog/spdlog.h>
-Bandwidth::Bandwidth(int l_amount, int p_amount, int k_amount) : l_amount(l_amount), p_amount(p_amount), k_amount(k_amount) {
+Bandwidth::Bandwidth(int l_amount, int p_amount, int k_amount) : kLAmount_(l_amount), kPAmount_(p_amount), kKAmount_(k_amount) {
 	int u3_channel_amount = k_amount - l_amount;
 	for (int i = 0; i < p_amount; i++) {
-		channels[i] = new Channel(1);
+		channels_[i] = new Channel(1);
 	}
 	for (int i = p_amount; i < u3_channel_amount; i++) {
-		channels[i] = new Channel(3);
+		channels_[i] = new Channel(3);
 	}
 	for (int i = u3_channel_amount; i < k_amount; i++) {
-		channels[i] = new Channel(2);
+		channels_[i] = new Channel(2);
 	}
 }
 
-bool Bandwidth::add_to_channel(Client* c) {
+bool Bandwidth::AddToChannel(Client* client) {
 	std::pair <int, int> group_indexes(0, 0);
-	if (c->get_group() == 1) {
+	if (client->get_group() == 1) {
 		group_indexes.first = 0;
-		group_indexes.second = p_amount;
+		group_indexes.second = kPAmount_;
 	}
-	else if ((c->get_group() == 2)) {
-		group_indexes.first = k_amount - l_amount;
-		group_indexes.second = k_amount;
+	else if ((client->get_group() == 2)) {
+		group_indexes.first = kKAmount_ - kLAmount_;
+		group_indexes.second = kKAmount_;
 	}
 	else {
-		group_indexes.first = p_amount;
-		group_indexes.second = k_amount - l_amount;
+		group_indexes.first = kPAmount_;
+		group_indexes.second = kKAmount_ - kLAmount_;
 	}
 	for (int i = group_indexes.first; i < group_indexes.second; i++) {
-		if (channels[i]->is_free()) {
-			channels[i]->add_client(c);
-			if (c->get_group() != 1) return true;
+		if (channels_[i]->is_free()) {
+			channels_[i]->AddClient(client);
+			if (client->get_group() != 1) return true;
 		}
 	}
-	if (c->get_group() == 1) return true;
+	if (client->get_group() == 1) return true;
 	else return false;
 }
 
-void Bandwidth::clear_radar() {
-	for (int i = 0; i < p_amount; i++) {
-		channels[i]->release();
+void Bandwidth::ClearRadar() {
+	for (int i = 0; i < kPAmount_; i++) {
+		channels_[i]->Release();
 	}
 }
 
-void Bandwidth::remove_user(Client* c) {
-	for (int i = p_amount - 1; i < k_amount; i++) {
-		if (channels[i]->get_client() == c) {
-			channels[i]->release();
+void Bandwidth::RemoveUser(Client* client) {
+	for (int i = kPAmount_ - 1; i < kKAmount_; i++) {
+		if (channels_[i]->get_client() == client) {
+			channels_[i]->Release();
 			return;
 		}
 	}
 }
 
-void Bandwidth::clear() {
+void Bandwidth::Clear() {
 	for (int i = 0; i < 20; i++) {
-		if (!channels[i]->is_free()) channels[i]->release();
+		if (!channels_[i]->is_free()) channels_[i]->Release();
 	}
 }
 
-void Bandwidth::print() {
+void Bandwidth::Print() {
 	std::string bottom_line = "#      #      #      #      #      #      #      #      #      #      #      #      #      #      #      #      #      #      #      #      #\n";
 	std::string top_line = "############################################################CHANNELS#########################################################################\n";
 	top_line += "#      #      #      #      #      #      #      #      #      #      #      #      #      #      #      #      #      #      #      #      #\n";
@@ -68,8 +68,8 @@ void Bandwidth::print() {
 	std::string printed_bandwidth = "";
 	char group = '0';
 	for (int i = 0; i < 20; i++) {
-		if (channels[i]->get_client() != nullptr) {
-			group = static_cast<char>(channels[i]->get_client_group() + 48);
+		if (channels_[i]->get_client() != nullptr) {
+			group = static_cast<char>(channels_[i]->get_client_group() + 48);
 			printed_bandwidth += "#  U";
 			printed_bandwidth += group;
 			printed_bandwidth += "  ";

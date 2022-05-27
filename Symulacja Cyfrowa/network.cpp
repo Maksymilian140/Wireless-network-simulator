@@ -2,11 +2,11 @@
 #include "event.h"
 
 Network::Network(int l_amount, int p_amount, int k_amount, int size, int try_time) {
-	bandwidth = new Bandwidth(l_amount, p_amount, k_amount);
-	buffer = new Buffer(size, try_time);
+	bandwidth_ = new Bandwidth(l_amount, p_amount, k_amount);
+	buffer_ = new Buffer(size, try_time);
 }
 
-Client* Network::generate_client(int group) {
+Client* Network::GenerateClient(int group) {
 	float service_time = 0;
 	if (group == 1) service_time = 0.01;
 	else service_time = rand() % 5 + 1;
@@ -15,43 +15,43 @@ Client* Network::generate_client(int group) {
 }
 
 Client* Network::get_first_from_buffer() {
-	return buffer->get_first();
+	return buffer_->get_first();
 }
 
-bool Network::add_to_bandwidth(Client* c) {
-	return bandwidth->add_to_channel(c);
+bool Network::AddToBandwidth(Client* client) {
+	return bandwidth_->AddToChannel(client);
 }
 
-Client* Network::buffer_pop() {
-	return buffer->pop();
+Client* Network::BufferPop() {
+	return buffer_->Pop();
 }
 
-void Network::bandwidth_clear_radar() {
-	bandwidth->clear_radar();
+void Network::BandwidthClearRadar() {
+	bandwidth_->ClearRadar();
 }
 
-bool Network::buffer_is_occupied() {
-	return buffer->is_occupied();
+bool Network::is_buffer_occupied() {
+	return buffer_->is_occupied();
 }
 
-void Network::add_to_buffer(Client* c) {
-	buffer->add(c);
+void Network::AddToBuffer(Client* c) {
+	buffer_->Add(c);
 }
 
-void Network::remove_from_bandwidth(Client* c) {
-	bandwidth->remove_user(c);
+void Network::RemoveFromBandwidth(Client* c) {
+	bandwidth_->RemoveUser(c);
 	delete c;
 }
 
-void Network::initialize() {
-	bandwidth->clear();
-	buffer->clear();
+void Network::Initialize() {
+	bandwidth_->Clear();
+	buffer_->Clear();
 }
 
-void Network::bandwidth_print() {
-	bandwidth->print();
+void Network::BandwidthPrint() {
+	bandwidth_->Print();
 }
 
-void Network::buffer_print() {
-	buffer->print();
+void Network::BufferPrint() {
+	buffer_->Print();
 }

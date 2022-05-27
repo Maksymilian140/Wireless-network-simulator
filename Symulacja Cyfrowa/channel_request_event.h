@@ -5,9 +5,9 @@ class ChannelRequestEvent : public Event
 {
 public:
 	ChannelRequestEvent(float event_time, Network* network, EventList* event_list);
-	void execute() override;
+	void Execute() override;
 private:
-	const int request_frequency = 200;
-	EventList* event_list = nullptr;
+	const int kRequestFrequency_ = 200;
+	EventList* event_list_ = nullptr;
 };
 #endif

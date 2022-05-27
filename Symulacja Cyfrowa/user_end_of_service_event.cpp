@@ -1,10 +1,10 @@
 #include "user_end_of_service_event.h"
 
-UserEndOfServiceEvent::UserEndOfServiceEvent(float event_time, Network* network, Client* user_to_remove) :Event(event_time, network), user_to_remove(user_to_remove) {}
+UserEndOfServiceEvent::UserEndOfServiceEvent(float event_time, Network* network, Client* user_to_remove) :Event(event_time, network), user_to_remove_(user_to_remove) {}
 
-void UserEndOfServiceEvent::execute() {
-	spdlog::info("Time: " + std::to_string(network->clock) + " ##### U" + std::to_string(user_to_remove->get_group()) + " is removed\n");
-	network->remove_from_bandwidth(user_to_remove);
-	network->bandwidth_print();
-	network->buffer_print();
+void UserEndOfServiceEvent::Execute() {
+	spdlog::info("Time: " + std::to_string(network_->clock_) + " ##### U" + std::to_string(user_to_remove_->get_group()) + " is removed\n");
+	network_->RemoveFromBandwidth(user_to_remove_);
+	network_->BandwidthPrint();
+	network_->BufferPrint();
 }

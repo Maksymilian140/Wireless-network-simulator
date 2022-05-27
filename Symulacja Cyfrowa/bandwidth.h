@@ -5,14 +5,14 @@ class Bandwidth
 {
 public:
 	Bandwidth(int l_amount, int p_amount, int k_amount);
-	bool add_to_channel(Client* c);
-	void clear_radar();
-	void remove_user(Client* c);
-	void clear();
-	void print();
+	bool AddToChannel(Client* client);
+	void ClearRadar();
+	void RemoveUser(Client* client);
+	void Clear();
+	void Print();
 private:
-	const int l_amount, p_amount, k_amount;
-	Channel* channels[20];
+	const int kLAmount_, kPAmount_, kKAmount_;
+	Channel* channels_[20];
 };
 
 #endif

@@ -4,9 +4,9 @@
 class UserActivationEvent : public Event {
 public:
 	UserActivationEvent(float event_time, Network* network, EventList* event_list);
-	void execute() override;
+	void Execute() override;
 private:
-	EventList* event_list = nullptr;
+	EventList* event_list_ = nullptr;
 };
 
 #endif

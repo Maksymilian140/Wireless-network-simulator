@@ -12,15 +12,12 @@ class Event
 public:
 	Event(float event_time, Network* network);
 	float get_time();
-	void virtual execute() = 0;
-	bool operator<(Event*);
-	bool operator>(Event*);
-	bool operator==(Event*);
-	
+	void virtual Execute() = 0;
+
 	typedef std::multiset<Event*, std::function<bool(Event*, Event*)>> EventList;	
 protected:
-	float event_time;
-	Network* network;
+	float event_time_;
+	Network* network_;
 };
 
 #endif

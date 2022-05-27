@@ -7,16 +7,16 @@ class Buffer
 public:
 	Buffer(int size, float try_time);
 
-	void add(Client*);
-	Client* pop();
+	void Add(Client* client);
+	Client* Pop();
 	Client* get_first();
 	bool is_occupied();
-	void clear();
-	void print();
+	void Clear();
+	void Print();
 private:
-	std::queue<Client*>queue_of_clients;
-	const int size;
-	const float	try_time;
+	std::queue<Client*>queue_of_clients_;
+	const int kSize_;
+	const float	kTryTime_;
 };
 
 #endif
