@@ -4,6 +4,7 @@
 #include "buffer.h"
 #include "channel.h"
 #include "bandwidth.h"
+#include <string>
 
 class Network {
 public:
@@ -19,6 +20,7 @@ public:
 	void Initialize();
 	void BandwidthPrint();
 	void BufferPrint();
+	std::string get_clock();
 	int clock_;
 private:
 	Bandwidth* bandwidth_;

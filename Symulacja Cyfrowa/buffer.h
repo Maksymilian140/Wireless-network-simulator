@@ -5,7 +5,7 @@
 class Buffer
 {
 public:
-	Buffer(int size, float try_time);
+	Buffer(int size, int try_time);
 
 	void Add(Client* client);
 	Client* Pop();
@@ -15,8 +15,7 @@ public:
 	void Print();
 private:
 	std::queue<Client*>queue_of_clients_;
-	const int kSize_;
-	const float	kTryTime_;
+	const int kSize_, kTryTime_;
 };
 
 #endif

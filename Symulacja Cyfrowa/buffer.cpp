@@ -2,7 +2,7 @@
 #include <iostream>
 #include <spdlog/spdlog.h>
 
-Buffer::Buffer(int size, float try_time) : kSize_(size), kTryTime_(try_time) {}
+Buffer::Buffer(int size, int try_time) : kSize_(size), kTryTime_(try_time) {}
 
 void Buffer::Add(Client* client) {
 	if (queue_of_clients_.size() < kSize_) {
@@ -67,5 +67,5 @@ void Buffer::Print() {
 		}
 	}
 	printed_buffer += "#\n";
-	spdlog::info('\n' + top_line + printed_buffer + bottom_line);
+	spdlog::debug('\n' + top_line + printed_buffer + bottom_line);
 }

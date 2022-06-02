@@ -3,7 +3,7 @@
 #include "event.h"
 class UserActivationEvent : public Event {
 public:
-	UserActivationEvent(float event_time, Network* network, EventList* event_list);
+	UserActivationEvent(int event_time, Network* network, EventList* event_list);
 	void Execute() override;
 private:
 	EventList* event_list_ = nullptr;

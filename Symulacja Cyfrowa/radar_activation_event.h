@@ -3,7 +3,7 @@
 #include"event.h"
 class RadarActivationEvent : public Event{
 public:
-	RadarActivationEvent(float event_time, Network* network, EventList* event_list);
+	RadarActivationEvent(int event_time, Network* network, EventList* event_list);
 	void Execute() override;
 private:
 	EventList* event_list_ = nullptr;

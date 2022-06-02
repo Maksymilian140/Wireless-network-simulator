@@ -14,11 +14,11 @@ void Simulator::RunSimulation(int time, int mode){
 	network_->Initialize();
 	if (mode == 2) spdlog::set_level(spdlog::level::debug);
 	spdlog::debug("Debuging enabled");
-	spdlog::info("##### Start of simulation #####");
+	spdlog::info("##### Start of simulation #####\n");
 	auto compare_events = [](Event* left, Event* right) { return left->get_time() < right->get_time(); };
 	Event::EventList event_list(compare_events);
-	Event* first_radar_event = new RadarActivationEvent(rand() % 4000 + 1000, network_, &event_list);
-	Event* first_user_event = new UserActivationEvent(rand() % 7000 + 1000, network_, &event_list);
+	Event* first_radar_event = new RadarActivationEvent(0, network_, &event_list);
+	Event* first_user_event = new UserActivationEvent(0, network_, &event_list);
 	Event* channel_request_start_event = new ChannelRequestEvent(200, network_, &event_list);
 	event_list.insert(first_radar_event);
 	event_list.insert(first_user_event);

@@ -10,13 +10,13 @@
 class Event
 {
 public:
-	Event(float event_time, Network* network);
-	float get_time();
+	Event(int event_time, Network* network);
+	int get_time();
 	void virtual Execute() = 0;
 
 	typedef std::multiset<Event*, std::function<bool(Event*, Event*)>> EventList;	
 protected:
-	float event_time_;
+	int event_time_;
 	Network* network_;
 };
 

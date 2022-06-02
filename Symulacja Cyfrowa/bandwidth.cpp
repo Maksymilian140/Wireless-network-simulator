@@ -78,5 +78,5 @@ void Bandwidth::Print() {
 			printed_bandwidth += "#      ";
 	}
 	printed_bandwidth += "#\n";
-	spdlog::info('\n' + top_line + printed_bandwidth + bottom_line);
+	spdlog::debug('\n' + top_line + printed_bandwidth + bottom_line);
 }
