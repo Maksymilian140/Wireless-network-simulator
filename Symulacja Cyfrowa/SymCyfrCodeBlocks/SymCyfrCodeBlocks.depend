@@ -1,0 +1,34 @@
+# depslib dependency file v1.0
+1660905182 source:c:\users\maksymilian stañko\symulacja cyfrowa\wireless-network-simulator\symulacja cyfrowa\main.cpp
+	"simulator.h"
+	<spdlog/spdlog.h>
+
+1660905182 c:\users\maksymilian stañko\symulacja cyfrowa\wireless-network-simulator\symulacja cyfrowa\simulator.h
+	"network.h"
+	<chrono>
+
+1660905182 c:\users\maksymilian stañko\symulacja cyfrowa\wireless-network-simulator\symulacja cyfrowa\network.h
+	"client.h"
+	"buffer.h"
+	"channel.h"
+	"bandwidth.h"
+	<string>
+
+1660905182 c:\users\maksymilian stañko\symulacja cyfrowa\wireless-network-simulator\symulacja cyfrowa\client.h
+
+1660905182 c:\users\maksymilian stañko\symulacja cyfrowa\wireless-network-simulator\symulacja cyfrowa\buffer.h
+	<queue>
+	"client.h"
+
+1660905182 c:\users\maksymilian stañko\symulacja cyfrowa\wireless-network-simulator\symulacja cyfrowa\channel.h
+	"client.h"
+
+1660905182 c:\users\maksymilian stañko\symulacja cyfrowa\wireless-network-simulator\symulacja cyfrowa\bandwidth.h
+	"channel.h"
+
+1660905182 source:c:\users\maksymilian stañko\symulacja cyfrowa\wireless-network-simulator\symulacja cyfrowa\channel.cpp
+	"channel.h"
+
+1660905182 source:c:\users\maksymilian stañko\symulacja cyfrowa\wireless-network-simulator\symulacja cyfrowa\client.cpp
+	"client.h"
+
