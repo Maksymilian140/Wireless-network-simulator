@@ -15,13 +15,14 @@ Bandwidth::Bandwidth(int l_amount, int p_amount, int k_amount) : kLAmount_(l_amo
 	}
 }
 
-bool Bandwidth::AddToChannel(Client* client) {
+bool Bandwidth::AddToChannel(Client* client, int new_group, int attempt) {
 	std::pair <int, int> group_indexes(0, 0);
-	if (client->get_group() == 1) {
+	if (new_group == 0) new_group = client->get_group();
+	if (new_group == 1) {
 		group_indexes.first = 0;
 		group_indexes.second = kPAmount_;
 	}
-	else if ((client->get_group() == 2)) {
+	else if (new_group == 2) {
 		group_indexes.first = kKAmount_ - kLAmount_;
 		group_indexes.second = kKAmount_;
 	}
@@ -30,13 +31,39 @@ bool Bandwidth::AddToChannel(Client* client) {
 		group_indexes.second = kKAmount_ - kLAmount_;
 	}
 	for (int i = group_indexes.first; i < group_indexes.second; i++) {
+		if (channels_[i]->get_client_group() > client->get_group()) channels_[i]->Release();
 		if (channels_[i]->is_free()) {
 			channels_[i]->AddClient(client);
 			if (client->get_group() != 1) return true;
 		}
 	}
 	if (client->get_group() == 1) return true;
-	else return false;
+	else {
+		if (client->get_group() == 2) {
+			switch (attempt) {
+				case 1:
+					AddToChannel(client, 3, ++attempt);
+					break;
+				case 2:
+					AddToChannel(client, 1, ++attempt);
+					break;
+				case 3:
+					return false;
+			}
+		}
+		if (client->get_group() == 3) {
+			switch (attempt) {
+				case 1:
+					AddToChannel(client, 1, ++attempt);
+					break;
+				case 2:
+					AddToChannel(client, 2, ++attempt);
+					break;
+				case 3:
+					return false;
+			}
+		}
+	}
 }
 
 void Bandwidth::ClearRadar() {
