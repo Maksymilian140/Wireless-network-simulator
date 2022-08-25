@@ -1,5 +1,4 @@
 #include "bandwidth.h"
-#include <utility>
 #include <iostream>
 #include <spdlog/spdlog.h>
 Bandwidth::Bandwidth(int l_amount, int p_amount, int k_amount) : kLAmount_(l_amount), kPAmount_(p_amount), kKAmount_(k_amount) {
@@ -15,14 +14,13 @@ Bandwidth::Bandwidth(int l_amount, int p_amount, int k_amount) : kLAmount_(l_amo
 	}
 }
 
-bool Bandwidth::AddToChannel(Client* client, int new_group, int attempt) {
+std::pair <int, int> Bandwidth::GroupToIndexes(int group) {
 	std::pair <int, int> group_indexes(0, 0);
-	if (new_group == 0) new_group = client->get_group();
-	if (new_group == 1) {
+	if (group == 1) {
 		group_indexes.first = 0;
 		group_indexes.second = kPAmount_;
 	}
-	else if (new_group == 2) {
+	else if (group == 2) {
 		group_indexes.first = kKAmount_ - kLAmount_;
 		group_indexes.second = kKAmount_;
 	}
@@ -30,8 +28,24 @@ bool Bandwidth::AddToChannel(Client* client, int new_group, int attempt) {
 		group_indexes.first = kPAmount_;
 		group_indexes.second = kKAmount_ - kLAmount_;
 	}
+	return group_indexes;
+}
+
+bool Bandwidth::IsFull(int group) {
+	std::pair <int, int> group_indexes = GroupToIndexes(group);
 	for (int i = group_indexes.first; i < group_indexes.second; i++) {
-		if (channels_[i]->get_client_group() > client->get_group()) channels_[i]->Release();
+		if (channels_[i]->is_free()) {
+			return false;
+		}
+	}
+	return true;
+}
+
+bool Bandwidth::AddToChannel(Client* client, int new_group, int attempt) {
+	if (new_group == 0) new_group = client->get_group();
+	std::pair <int, int> group_indexes = GroupToIndexes(new_group);
+	for (int i = group_indexes.first; i < group_indexes.second; i++) {
+		if (channels_[i]->get_client_group() > client->get_group() && new_group == client->get_group() && IsFull(new_group)) channels_[i]->Release();
 		if (channels_[i]->is_free()) {
 			channels_[i]->AddClient(client);
 			if (client->get_group() != 1) return true;

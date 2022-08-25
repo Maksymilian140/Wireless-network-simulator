@@ -28,7 +28,7 @@ void UserActivationEvent::Execute() {
 	network_->BufferPrint();
 	// plan next user activation event
 	//int event_t = (rand() % 5000) + network_->clock_;
-	int event_t = (rand() % 1000) + network_->clock_; // speed up for testing
+	int event_t = (rand() % 500) + network_->clock_; // speed up for testing
 	Event* next_request_event = new UserActivationEvent(event_t, network_, event_list_);
 	event_list_->insert(next_request_event);
 }

@@ -5,7 +5,7 @@ Channel::Channel(int client_group) : kClientGroup_(client_group) {
 }
 
 int Channel::get_client_group() {
-	return kClientGroup_;
+	if (serviced_client_ != nullptr) return serviced_client_->get_group();
 }
 
 void Channel::AddClient(Client* client) {

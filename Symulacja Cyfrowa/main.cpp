@@ -1,6 +1,7 @@
 ﻿#include <iostream>
 #include "simulator.h"
 #include <spdlog/spdlog.h>
+#include <chrono>
 
 using namespace std;
 
