@@ -87,7 +87,7 @@ void Bandwidth::ClearRadar() {
 }
 
 void Bandwidth::RemoveUser(Client* client) {
-	for (int i = kPAmount_ - 1; i < kKAmount_; i++) {
+	for (int i = 0; i < kKAmount_; i++) {
 		if (channels_[i]->get_client() == client) {
 			channels_[i]->Release();
 			return;
