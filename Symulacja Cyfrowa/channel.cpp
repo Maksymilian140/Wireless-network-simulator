@@ -1,4 +1,5 @@
 #include "channel.h"
+#include <spdlog/spdlog.h>
 
 Channel::Channel(int client_group) : kClientGroup_(client_group) {
 	serviced_client_ = nullptr;
@@ -17,7 +18,8 @@ bool Channel::is_free() {
 	else return false;
 }
 
-void Channel::Release() {
+void Channel::Release(bool kicked) {
+	if (kicked) spdlog::info("U" + std::to_string(serviced_client_->get_group()) + " is kicked out due to arrival of higher priority user\n");
 	serviced_client_ = nullptr;
 }
 

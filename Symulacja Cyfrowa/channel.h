@@ -8,7 +8,7 @@ public:
 	int get_client_group();
 	void AddClient(Client *client);
 	bool is_free();
-	void Release();
+	void Release(bool kicked = false);
 	Client* get_client();
 private:
 	Client* serviced_client_;
