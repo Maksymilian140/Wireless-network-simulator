@@ -45,8 +45,12 @@ bool Bandwidth::AddToChannel(Client* client, int new_group, int attempt) {
 	if (new_group == 0) new_group = client->get_group();
 	std::pair <int, int> group_indexes = GroupToIndexes(new_group);
 	for (int i = group_indexes.first; i < group_indexes.second; i++) {
-		if (channels_[i]->get_client_group() > client->get_group() && new_group == client->get_group() && (IsFull(new_group) || client->get_group() == 1)) channels_[i]->Release(true);
 		if (channels_[i]->is_free()) {
+			channels_[i]->AddClient(client);
+			if (client->get_group() != 1) return true;
+		}
+		else if (channels_[i]->get_client_group() > client->get_group() && new_group == client->get_group() && (IsFull(new_group) || client->get_group() == 1)) {
+			channels_[i]->Release(true);
 			channels_[i]->AddClient(client);
 			if (client->get_group() != 1) return true;
 		}
