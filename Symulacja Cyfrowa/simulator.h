@@ -1,7 +1,6 @@
 #ifndef SIMULATOR_H
 #define	SIMULATOR_H	
-#include"network.h"
-#include<chrono>
+#include "network.h"
 class Simulator
 {
 public:

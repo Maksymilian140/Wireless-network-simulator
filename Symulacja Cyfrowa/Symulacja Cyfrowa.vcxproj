@@ -146,6 +146,7 @@
     <ClCompile Include="channel.cpp" />
     <ClCompile Include="channel_request_event.cpp" />
     <ClCompile Include="client.cpp" />
+    <ClCompile Include="generator.cpp" />
     <ClCompile Include="user_activation_event.cpp" />
     <ClCompile Include="radar_activation_event.cpp" />
     <ClCompile Include="radar_end_of_service_event.cpp" />
@@ -161,6 +162,7 @@
     <ClInclude Include="channel.h" />
     <ClInclude Include="channel_request_event.h" />
     <ClInclude Include="client.h" />
+    <ClInclude Include="generator.h" />
     <ClInclude Include="user_activation_event.h" />
     <ClInclude Include="radar_activation_event.h" />
     <ClInclude Include="radar_end_of_service_event.h" />

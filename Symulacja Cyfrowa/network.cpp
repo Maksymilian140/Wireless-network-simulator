@@ -56,6 +56,18 @@ void Network::BufferPrint() {
 	buffer_->Print();
 }
 
+void Network::UpdateStatistics(int group) {
+	if (group == 2) u2_total_++;
+	else u3_total_++;
+}
+
+int Network::get_ratio() {
+	if (u2_total_ == 0 and u3_total_ == 0)
+		return 0;
+	else
+		return static_cast<int>((static_cast<double>(u2_total_) / (u2_total_ + u3_total_)) * 100);
+}
+
 std::string Network::get_clock() {
 	std::string time = std::to_string(static_cast<double>(clock_) / 1000);
 	time.resize(time.size() - 3);
