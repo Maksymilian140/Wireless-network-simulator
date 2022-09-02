@@ -1,5 +1,6 @@
 #include "network.h"
 #include "event.h"
+#include <fstream>
 
 Network::Network(int l_amount, int p_amount, int k_amount, int size, int try_time) {
 	bandwidth_ = new Bandwidth(l_amount, p_amount, k_amount);
@@ -56,7 +57,7 @@ void Network::BufferPrint() {
 	buffer_->Print();
 }
 
-void Network::UpdateStatistics(int group) {
+void Network::UpdateUserStat(int group) {
 	if (group == 2) u2_total_++;
 	else u3_total_++;
 }
@@ -72,4 +73,22 @@ std::string Network::get_clock() {
 	std::string time = std::to_string(static_cast<double>(clock_) / 1000);
 	time.resize(time.size() - 3);
 	return time;
+}
+
+std::list<std::pair<double, std::string>> Network::GetBandwidthUsageList() {
+	return avg_bandwidth_usage_stat_;
+}
+
+void Network::SaveBandwidthStat() {
+	std::ofstream output_file;
+	output_file.open("./Bandwidth_Statistics.txt");
+	for (std::pair<double, std::string> i : avg_bandwidth_usage_stat_) {
+		output_file << std::to_string(i.first) << " " << i.second << "\n";
+	}
+	output_file.close();
+}
+
+void Network::UpdateBandwidthStat() {
+	std::pair<double, std::string> record(bandwidth_->GetAvgUsage(), get_clock());
+	avg_bandwidth_usage_stat_.push_back(record);
 }

@@ -5,6 +5,8 @@
 #include "channel.h"
 #include "bandwidth.h"
 #include <string>
+#include <list>
+#include <utility>
 
 class Network {
 public:
@@ -20,14 +22,19 @@ public:
 	void Initialize();
 	void BandwidthPrint();
 	void BufferPrint();
-	void UpdateStatistics(int group);
 	int get_ratio();
 	std::string get_clock();
+	std::list<std::pair<double, std::string>> GetBandwidthUsageList();
+	void SaveBandwidthStat();
+	void UpdateBandwidthStat();
+	void UpdateUserStat(int group);
 	int clock_;
-	int u2_total_ = 0, u3_total_ = 0;
 private:
 	Bandwidth* bandwidth_;
 	Buffer* buffer_;
+	int u2_total_ = 0, u3_total_ = 0;
+	std::list<std::pair<double, std::string>> avg_bandwidth_usage_stat_;
+
 };
 
 #endif

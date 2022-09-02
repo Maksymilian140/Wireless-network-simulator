@@ -28,7 +28,7 @@ void UserActivationEvent::Execute() {
 			network_->AddToBuffer(client);
 		}
 	}
-	network_->UpdateStatistics(group);
+	network_->UpdateUserStat(group);
 	spdlog::debug("Time: " + network_->get_clock() + "ms" + " ##### U2/U3 ratio: " + std::to_string(network_->get_ratio()) + " % \n");
 	network_->BandwidthPrint();
 	network_->BufferPrint();

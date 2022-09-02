@@ -34,5 +34,7 @@ void Simulator::RunSimulation(int time, int mode){
 		event_list.erase(event_iterator);
 		network_->clock_ = exc_event->get_time();
 		exc_event->Execute();
+		network_->UpdateBandwidthStat();
 	}
+	network_->SaveBandwidthStat();
 }

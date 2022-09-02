@@ -125,3 +125,11 @@ void Bandwidth::Print() {
 	printed_bandwidth += "#\n";
 	spdlog::debug('\n' + top_line + printed_bandwidth + bottom_line);
 }
+
+double Bandwidth::GetAvgUsage() {
+	int full = kKAmount_;
+	for (int i = 0; i < kKAmount_; i++) {
+		if (channels_[i]->is_free()) full--;
+	}
+	return static_cast<double>(full) / kKAmount_;
+}

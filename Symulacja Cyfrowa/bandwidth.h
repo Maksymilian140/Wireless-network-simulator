@@ -13,6 +13,7 @@ public:
 	void RemoveUser(Client* client);
 	void Clear();
 	void Print();
+	double GetAvgUsage();
 private:
 	const int kLAmount_, kPAmount_, kKAmount_;
 	Channel* channels_[20];
