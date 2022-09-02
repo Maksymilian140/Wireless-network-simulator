@@ -50,6 +50,7 @@ bool Bandwidth::AddToChannel(Client* client, int new_group, int attempt) {
 			if (client->get_group() != 1) return true;
 		}
 		else if (channels_[i]->get_client_group() > client->get_group() && new_group == client->get_group() && (IsFull(new_group) || client->get_group() == 1)) {
+			UpdateKickedStat(channels_[i]->get_client_group());
 			channels_[i]->Release(true);
 			channels_[i]->AddClient(client);
 			if (client->get_group() != 1) return true;
@@ -132,4 +133,14 @@ double Bandwidth::GetAvgUsage() {
 		if (channels_[i]->is_free()) full--;
 	}
 	return static_cast<double>(full) / kKAmount_;
+}
+
+std::pair<int, int> Bandwidth::GetKickedStat() {
+	std::pair<int, int> kicked_pair(u2_kicked_, u3_kicked_);
+	return kicked_pair;
+}
+
+void Bandwidth::UpdateKickedStat(int group) {
+	if (group == 2) u2_kicked_++;
+	else u3_kicked_++;
 }

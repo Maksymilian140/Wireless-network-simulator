@@ -62,6 +62,11 @@ void Network::UpdateUserStat(int group) {
 	else u3_total_++;
 }
 
+void Network::UpdateUserLostStat(int group) {
+	if (group == 2) u2_lost_++;
+	else u3_lost_++;
+}
+
 int Network::get_ratio() {
 	if (u2_total_ == 0 and u3_total_ == 0)
 		return 0;
@@ -91,4 +96,11 @@ void Network::SaveBandwidthStat() {
 void Network::UpdateBandwidthStat() {
 	std::pair<double, std::string> record(bandwidth_->GetAvgUsage(), get_clock());
 	avg_bandwidth_usage_stat_.push_back(record);
+}
+
+void Network::LogBlockProbability() {
+	int u2_E = static_cast<double> ((u2_lost_ + bandwidth_->GetKickedStat().first) / u2_total_);
+	int u3_E = static_cast<double> ((u3_lost_ + bandwidth_->GetKickedStat().second) / u3_total_);
+	spdlog::info("U2: E = " + std::to_string(u2_E) + " " + std::to_string(u2_lost_) + " " + std::to_string(u2_total_) + " " + std::to_string(bandwidth_->GetKickedStat().first) + "\n");
+	spdlog::info("U3: E = " + std::to_string(u3_E) + "\n");
 }

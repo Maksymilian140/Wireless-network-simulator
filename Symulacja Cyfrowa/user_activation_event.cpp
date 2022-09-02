@@ -22,7 +22,12 @@ void UserActivationEvent::Execute() {
 	}
 	else {
 		// if buffer is occupied then drop the user else add him to the buffer
-		if (network_->is_buffer_occupied()) delete client;
+		if (network_->is_buffer_occupied()) {
+			spdlog::info(std::to_string(group));
+			network_->UpdateUserLostStat(group);
+			spdlog::info("Time: " + network_->get_clock() + "ms" + " ##### U" + std::to_string(group) + " is dropped due to lack of available channels.\n");
+			delete client;
+		}
 		else {
 			spdlog::info("Time: " + network_->get_clock() + "ms" + " ##### U" + std::to_string(group) + " is added to buffer\n");
 			network_->AddToBuffer(client);
@@ -33,7 +38,7 @@ void UserActivationEvent::Execute() {
 	network_->BandwidthPrint();
 	network_->BufferPrint();
 	// plan next user activation event
-	int event_t = user_time_generator_.Exponential(0.0001) + network_->clock_;
+	int event_t = user_time_generator_.Exponential(0.1) + network_->clock_;
 	Event* next_request_event = new UserActivationEvent(event_t, network_, event_list_);
 	event_list_->insert(next_request_event);
 }

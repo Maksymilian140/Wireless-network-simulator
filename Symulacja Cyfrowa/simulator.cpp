@@ -37,4 +37,5 @@ void Simulator::RunSimulation(int time, int mode){
 		network_->UpdateBandwidthStat();
 	}
 	network_->SaveBandwidthStat();
+	network_->LogBlockProbability();
 }

@@ -14,9 +14,12 @@ public:
 	void Clear();
 	void Print();
 	double GetAvgUsage();
+	void UpdateKickedStat(int group);
+	std::pair<int, int> GetKickedStat();
 private:
 	const int kLAmount_, kPAmount_, kKAmount_;
 	Channel* channels_[20];
+	int u2_kicked_ = 0, u3_kicked_ = 0;
 };
 
 #endif

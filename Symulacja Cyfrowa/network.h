@@ -28,11 +28,13 @@ public:
 	void SaveBandwidthStat();
 	void UpdateBandwidthStat();
 	void UpdateUserStat(int group);
+	void UpdateUserLostStat(int group);
+	void LogBlockProbability();
 	int clock_;
 private:
 	Bandwidth* bandwidth_;
 	Buffer* buffer_;
-	int u2_total_ = 0, u3_total_ = 0;
+	int u2_total_ = 0, u3_total_ = 0, u2_lost_ = 0, u3_lost_ = 0;
 	std::list<std::pair<double, std::string>> avg_bandwidth_usage_stat_;
 
 };
