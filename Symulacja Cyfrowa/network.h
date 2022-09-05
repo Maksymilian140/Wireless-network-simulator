@@ -10,7 +10,7 @@
 
 class Network {
 public:
-	Network(int l_amount, int p_amount, int k_amount, int size, int try_time);
+	Network(int l_amount, int p_amount, int k_amount, int size, int try_time, double lambda);
 	Client* GenerateClient(int group);
 	Client* get_first_from_buffer();
 	bool AddToBandwidth(Client* client);
@@ -23,9 +23,11 @@ public:
 	void BandwidthPrint();
 	void BufferPrint();
 	int get_ratio();
+	double get_lambda();
 	std::string get_clock();
 	std::list<std::pair<double, std::string>> GetBandwidthUsageList();
 	void SaveBandwidthStat();
+	void SaveBlockProbStat();
 	void UpdateBandwidthStat();
 	void UpdateUserStat(int group);
 	void UpdateUserLostStat(int group);
@@ -36,7 +38,7 @@ private:
 	Buffer* buffer_;
 	int u2_total_ = 0, u3_total_ = 0, u2_lost_ = 0, u3_lost_ = 0;
 	std::list<std::pair<double, std::string>> avg_bandwidth_usage_stat_;
-
+	double lambda_;
 };
 
 #endif

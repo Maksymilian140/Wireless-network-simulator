@@ -5,8 +5,8 @@
 #include <iostream>
 #include <spdlog/spdlog.h>
 
-Simulator::Simulator(int l_amount, int p_amount, int k_amount, int size, int try_time) {
-	network_ = new Network(l_amount, p_amount, k_amount, size, try_time);
+Simulator::Simulator(int l_amount, int p_amount, int k_amount, int size, int try_time, double lambda) {
+	network_ = new Network(l_amount, p_amount, k_amount, size, try_time, lambda);
 }
 
 void Simulator::RunSimulation(int time, int mode){
@@ -37,5 +37,6 @@ void Simulator::RunSimulation(int time, int mode){
 		network_->UpdateBandwidthStat();
 	}
 	network_->SaveBandwidthStat();
+	network_->SaveBlockProbStat();
 	network_->LogBlockProbability();
 }

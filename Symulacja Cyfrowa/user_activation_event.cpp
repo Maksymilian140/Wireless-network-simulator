@@ -38,7 +38,7 @@ void UserActivationEvent::Execute() {
 	network_->BandwidthPrint();
 	network_->BufferPrint();
 	// plan next user activation event
-	int event_t = user_time_generator_.Exponential(0.1) + network_->clock_;
+	int event_t = user_time_generator_.Exponential(network_->get_lambda()) + network_->clock_;
 	Event* next_request_event = new UserActivationEvent(event_t, network_, event_list_);
 	event_list_->insert(next_request_event);
 }

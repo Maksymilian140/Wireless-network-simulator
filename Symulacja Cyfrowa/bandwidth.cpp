@@ -41,48 +41,52 @@ bool Bandwidth::IsFull(int group) {
 	return true;
 }
 
-bool Bandwidth::AddToChannel(Client* client, int new_group, int attempt) {
-	if (new_group == 0) new_group = client->get_group();
-	std::pair <int, int> group_indexes = GroupToIndexes(new_group);
-	for (int i = group_indexes.first; i < group_indexes.second; i++) {
-		if (channels_[i]->is_free()) {
-			channels_[i]->AddClient(client);
-			if (client->get_group() != 1) return true;
-		}
-		else if (channels_[i]->get_client_group() > client->get_group() && new_group == client->get_group() && (IsFull(new_group) || client->get_group() == 1)) {
-			UpdateKickedStat(channels_[i]->get_client_group());
-			channels_[i]->Release(true);
-			channels_[i]->AddClient(client);
-			if (client->get_group() != 1) return true;
-		}
-	}
-	if (client->get_group() == 1) return true;
-	else {
-		if (client->get_group() == 2) {
-			switch (attempt) {
-				case 1:
-					AddToChannel(client, 3, ++attempt);
-					break;
-				case 2:
-					AddToChannel(client, 1, ++attempt);
-					break;
-				case 3:
-					return false;
+
+bool Bandwidth::AddToChannel(Client* client) {
+	int new_group = 0, attempt = 1;
+	while (attempt < 3) {
+		if (new_group == 0) new_group = client->get_group();
+		std::pair <int, int> group_indexes = GroupToIndexes(new_group);
+		for (int i = group_indexes.first; i < group_indexes.second; i++) {
+			if (channels_[i]->is_free()) {
+				channels_[i]->AddClient(client);
+				if (client->get_group() != 1) return true;
+			}
+			else if (channels_[i]->get_client_group() > client->get_group() && new_group == client->get_group() && (IsFull(new_group) || client->get_group() == 1)) {
+				UpdateKickedStat(channels_[i]->get_client_group());
+				channels_[i]->Release(true);
+				channels_[i]->AddClient(client);
+				if (client->get_group() != 1) return true;
 			}
 		}
-		if (client->get_group() == 3) {
-			switch (attempt) {
+		if (client->get_group() == 1) return true;
+		else {
+			if (client->get_group() == 2) {
+				switch (attempt) {
 				case 1:
-					AddToChannel(client, 1, ++attempt);
+					new_group = 3;
+					attempt++;
 					break;
 				case 2:
-					AddToChannel(client, 2, ++attempt);
+					new_group = 1;
+					attempt++;
+				}
+			}
+			if (client->get_group() == 3) {
+				switch (attempt) {
+				case 1:
+					new_group = 1;
+					attempt++;
 					break;
-				case 3:
-					return false;
+				case 2:
+					new_group = 2;
+					attempt++;
+					break;
+				}
 			}
 		}
 	}
+	return false;
 }
 
 void Bandwidth::ClearRadar() {

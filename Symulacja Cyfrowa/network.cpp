@@ -2,9 +2,10 @@
 #include "event.h"
 #include <fstream>
 
-Network::Network(int l_amount, int p_amount, int k_amount, int size, int try_time) {
+Network::Network(int l_amount, int p_amount, int k_amount, int size, int try_time, double lambda) {
 	bandwidth_ = new Bandwidth(l_amount, p_amount, k_amount);
 	buffer_ = new Buffer(size, try_time);
+	lambda_ = lambda;
 }
 
 Client* Network::GenerateClient(int group) {
@@ -80,6 +81,10 @@ std::string Network::get_clock() {
 	return time;
 }
 
+double Network::get_lambda() {
+	return lambda_;
+}
+
 std::list<std::pair<double, std::string>> Network::GetBandwidthUsageList() {
 	return avg_bandwidth_usage_stat_;
 }
@@ -93,6 +98,13 @@ void Network::SaveBandwidthStat() {
 	output_file.close();
 }
 
+void Network::SaveBlockProbStat() {
+	std::ofstream output_file;
+	output_file.open("./Block_Probability_Statistics.txt", std::ios_base::app);
+	output_file << "lambda=" + std::to_string(lambda_) + ", E_U2=" + std::to_string(static_cast<double> (u2_lost_ + bandwidth_->GetKickedStat().first) / u2_total_) + ", E_U3=" + std::to_string(static_cast<double> (u3_lost_ + bandwidth_->GetKickedStat().second) / u3_total_) + "\n";
+	output_file.close();
+}
+
 void Network::UpdateBandwidthStat() {
 	std::pair<double, std::string> record(bandwidth_->GetAvgUsage(), get_clock());
 	avg_bandwidth_usage_stat_.push_back(record);
@@ -102,5 +114,5 @@ void Network::LogBlockProbability() {
 	int u2_E = static_cast<double> ((u2_lost_ + bandwidth_->GetKickedStat().first) / u2_total_);
 	int u3_E = static_cast<double> ((u3_lost_ + bandwidth_->GetKickedStat().second) / u3_total_);
 	spdlog::info("U2: E = " + std::to_string(u2_E) + " " + std::to_string(u2_lost_) + " " + std::to_string(u2_total_) + " " + std::to_string(bandwidth_->GetKickedStat().first) + "\n");
-	spdlog::info("U3: E = " + std::to_string(u3_E) + "\n");
+	spdlog::info("U3: E = " + std::to_string(u3_E) + " " + std::to_string(u3_lost_) + " " + std::to_string(u3_total_) + " " + std::to_string(bandwidth_->GetKickedStat().second) + "\n");
 }
