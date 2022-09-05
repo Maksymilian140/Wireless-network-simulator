@@ -155,6 +155,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="simulator.cpp" />
     <ClCompile Include="user_end_of_service_event.cpp" />
+    <ClCompile Include="gather_statistics_event.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="bandwidth.h" />
@@ -163,6 +164,7 @@
     <ClInclude Include="channel_request_event.h" />
     <ClInclude Include="client.h" />
     <ClInclude Include="generator.h" />
+    <ClInclude Include="gather_statistics_event.h" />
     <ClInclude Include="user_activation_event.h" />
     <ClInclude Include="radar_activation_event.h" />
     <ClInclude Include="radar_end_of_service_event.h" />

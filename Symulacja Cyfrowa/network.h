@@ -31,12 +31,14 @@ public:
 	void UpdateBandwidthStat();
 	void UpdateUserStat(int group);
 	void UpdateUserLostStat(int group);
-	void LogBlockProbability();
+	void UpdateServicedUsersStat();
+	void DisplayBlockProbability();
+	void DisplayServicedUsersStat();
 	int clock_;
 private:
 	Bandwidth* bandwidth_;
 	Buffer* buffer_;
-	int u2_total_ = 0, u3_total_ = 0, u2_lost_ = 0, u3_lost_ = 0;
+	int u2_total_ = 0, u3_total_ = 0, u2_lost_ = 0, u3_lost_ = 0, u2_serviced_sum_ = 0, u3_serviced_sum_ = 0, stat_counter_ = 0;
 	std::list<std::pair<double, std::string>> avg_bandwidth_usage_stat_;
 	double lambda_;
 };

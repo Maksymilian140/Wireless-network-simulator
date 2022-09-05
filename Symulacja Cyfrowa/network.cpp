@@ -110,9 +110,27 @@ void Network::UpdateBandwidthStat() {
 	avg_bandwidth_usage_stat_.push_back(record);
 }
 
-void Network::LogBlockProbability() {
-	int u2_E = static_cast<double> ((u2_lost_ + bandwidth_->GetKickedStat().first) / u2_total_);
-	int u3_E = static_cast<double> ((u3_lost_ + bandwidth_->GetKickedStat().second) / u3_total_);
-	spdlog::info("U2: E = " + std::to_string(u2_E) + " " + std::to_string(u2_lost_) + " " + std::to_string(u2_total_) + " " + std::to_string(bandwidth_->GetKickedStat().first) + "\n");
-	spdlog::info("U3: E = " + std::to_string(u3_E) + " " + std::to_string(u3_lost_) + " " + std::to_string(u3_total_) + " " + std::to_string(bandwidth_->GetKickedStat().second) + "\n");
+void Network::UpdateServicedUsersStat() {
+	u2_serviced_sum_ += bandwidth_->CountServicedUsers(2);
+	u3_serviced_sum_ += bandwidth_->CountServicedUsers(3);
+	stat_counter_++;
 }
+
+void Network::DisplayServicedUsersStat() {
+	std::string u2_avg = std::to_string(static_cast<double>(u2_serviced_sum_) / stat_counter_);
+	std::string u3_avg = std::to_string(static_cast<double>(u3_serviced_sum_) / stat_counter_);
+	u2_avg.resize(u2_avg.size() - 3);
+	u3_avg.resize(u3_avg.size() - 3);
+	spdlog::info("Average U2's serviced: " + u2_avg + "\n");
+	spdlog::info("Average U3's serviced: " + u3_avg + "\n");
+}
+
+void Network::DisplayBlockProbability() {
+	std::string u2_E = std::to_string(static_cast<double> (u2_lost_ + bandwidth_->GetKickedStat().first) / u2_total_);
+	std::string u3_E = std::to_string(static_cast<double> (u3_lost_ + bandwidth_->GetKickedStat().second) / u3_total_);
+	u2_E.resize(u2_E.size() - 3);
+	u3_E.resize(u3_E.size() - 3);
+	spdlog::info("U2: E = " + u2_E + "\n");
+	spdlog::info("U3: E = " + u3_E + "\n");
+}
+

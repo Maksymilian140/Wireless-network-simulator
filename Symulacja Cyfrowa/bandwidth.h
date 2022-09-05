@@ -16,6 +16,7 @@ public:
 	double GetAvgUsage();
 	void UpdateKickedStat(int group);
 	std::pair<int, int> GetKickedStat();
+	int CountServicedUsers(int group);
 private:
 	const int kLAmount_, kPAmount_, kKAmount_;
 	Channel* channels_[20];

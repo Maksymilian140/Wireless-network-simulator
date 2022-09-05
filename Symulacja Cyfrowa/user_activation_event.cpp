@@ -23,7 +23,6 @@ void UserActivationEvent::Execute() {
 	else {
 		// if buffer is occupied then drop the user else add him to the buffer
 		if (network_->is_buffer_occupied()) {
-			spdlog::info(std::to_string(group));
 			network_->UpdateUserLostStat(group);
 			spdlog::info("Time: " + network_->get_clock() + "ms" + " ##### U" + std::to_string(group) + " is dropped due to lack of available channels.\n");
 			delete client;

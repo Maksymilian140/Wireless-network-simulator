@@ -89,6 +89,14 @@ bool Bandwidth::AddToChannel(Client* client) {
 	return false;
 }
 
+int Bandwidth::CountServicedUsers(int group) {
+	int counter = 0;
+	for (int i = 0; i < kKAmount_; i++) {
+		if (channels_[i]->get_client_group() == group) counter++;
+	}
+	return counter;
+}
+
 void Bandwidth::ClearRadar() {
 	for (int i = 0; i < kPAmount_; i++) {
 		channels_[i]->Release();
