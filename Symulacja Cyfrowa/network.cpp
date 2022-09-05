@@ -85,19 +85,6 @@ double Network::get_lambda() {
 	return lambda_;
 }
 
-std::list<std::pair<double, std::string>> Network::GetBandwidthUsageList() {
-	return avg_bandwidth_usage_stat_;
-}
-
-void Network::SaveBandwidthStat() {
-	std::ofstream output_file;
-	output_file.open("./Bandwidth_Statistics.txt");
-	for (std::pair<double, std::string> i : avg_bandwidth_usage_stat_) {
-		output_file << std::to_string(i.first) << " " << i.second << "\n";
-	}
-	output_file.close();
-}
-
 void Network::SaveBlockProbStat() {
 	std::ofstream output_file;
 	output_file.open("./Block_Probability_Statistics.txt", std::ios_base::app);
@@ -106,8 +93,7 @@ void Network::SaveBlockProbStat() {
 }
 
 void Network::UpdateBandwidthStat() {
-	std::pair<double, std::string> record(bandwidth_->GetAvgUsage(), get_clock());
-	avg_bandwidth_usage_stat_.push_back(record);
+	bandwidth_usage_counter_ += bandwidth_->GetUsage() / bandwidth_->GetSize();
 }
 
 void Network::UpdateServicedUsersStat() {
@@ -119,8 +105,8 @@ void Network::UpdateServicedUsersStat() {
 void Network::DisplayServicedUsersStat() {
 	std::string u2_avg = std::to_string(static_cast<double>(u2_serviced_sum_) / stat_counter_);
 	std::string u3_avg = std::to_string(static_cast<double>(u3_serviced_sum_) / stat_counter_);
-	u2_avg.resize(u2_avg.size() - 3);
-	u3_avg.resize(u3_avg.size() - 3);
+	u2_avg.resize(u2_avg.size() - 4);
+	u3_avg.resize(u3_avg.size() - 4);
 	spdlog::info("Average U2's serviced: " + u2_avg + "\n");
 	spdlog::info("Average U3's serviced: " + u3_avg + "\n");
 }
@@ -132,5 +118,11 @@ void Network::DisplayBlockProbability() {
 	u3_E.resize(u3_E.size() - 3);
 	spdlog::info("U2: E = " + u2_E + "\n");
 	spdlog::info("U3: E = " + u3_E + "\n");
+}
+
+void Network::DisplayBandwidthStat() {
+	std::string b_usage = std::to_string((bandwidth_usage_counter_ / stat_counter_) * 100);
+	b_usage.resize(b_usage.size() - 4);
+	spdlog::info("Average bandwidth usage: " + b_usage + "%\n");
 }
 

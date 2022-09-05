@@ -13,7 +13,8 @@ public:
 	void RemoveUser(Client* client);
 	void Clear();
 	void Print();
-	double GetAvgUsage();
+	double GetUsage();
+	int GetSize();
 	void UpdateKickedStat(int group);
 	std::pair<int, int> GetKickedStat();
 	int CountServicedUsers(int group);

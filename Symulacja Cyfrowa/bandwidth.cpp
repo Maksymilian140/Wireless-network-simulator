@@ -139,12 +139,16 @@ void Bandwidth::Print() {
 	spdlog::debug('\n' + top_line + printed_bandwidth + bottom_line);
 }
 
-double Bandwidth::GetAvgUsage() {
+double Bandwidth::GetUsage() {
 	int full = kKAmount_;
 	for (int i = 0; i < kKAmount_; i++) {
 		if (channels_[i]->is_free()) full--;
 	}
-	return static_cast<double>(full) / kKAmount_;
+	return static_cast<double>(full);
+}
+
+int Bandwidth::GetSize() {
+	return kKAmount_;
 }
 
 std::pair<int, int> Bandwidth::GetKickedStat() {

@@ -38,8 +38,7 @@ void Simulator::RunSimulation(int time, int mode){
 		network_->clock_ = exc_event->get_time();
 		exc_event->Execute();
 	}
-	network_->SaveBandwidthStat();
-	network_->SaveBlockProbStat();
 	network_->DisplayBlockProbability();
 	network_->DisplayServicedUsersStat();
+	network_->DisplayBandwidthStat();
 }
