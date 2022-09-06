@@ -44,7 +44,7 @@ bool Bandwidth::IsFull(int group) {
 
 bool Bandwidth::AddToChannel(Client* client) {
 	int new_group = 0, attempt = 1;
-	while (attempt < 3) {
+	while (attempt < 4) {
 		if (new_group == 0) new_group = client->GetGroup();
 		std::pair <int, int> group_indexes = GroupToIndexes(new_group);
 		for (int i = group_indexes.first; i < group_indexes.second; i++) {
@@ -70,6 +70,8 @@ bool Bandwidth::AddToChannel(Client* client) {
 				case 2:
 					new_group = 1;
 					attempt++;
+				default:
+					return false;
 				}
 			}
 			if (client->GetGroup() == 3) {
@@ -82,6 +84,8 @@ bool Bandwidth::AddToChannel(Client* client) {
 					new_group = 2;
 					attempt++;
 					break;
+				default:
+					return false;
 				}
 			}
 		}

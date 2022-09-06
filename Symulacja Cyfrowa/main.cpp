@@ -10,7 +10,7 @@ int main()
 	std::ofstream output_file;
 	output_file.open("E_A.txt", std::ios::app);
 	int mode;
-	double lambda = 0.001, E = 0, last_E = 0;
+	double lambda = 0.005, E = 0, last_E = 0;
 	std::cout << "Wybierz tryb:\n1) Tryb ciagly.\n2) Tryb krokowy (Debug)." << std::endl;
 	std::cin >> mode;
 	Simulator simulation(10, 5, 20, 5, 200);
