@@ -5,9 +5,12 @@ RadarActivationEvent::RadarActivationEvent(int event_time, Network* network, Eve
 
 void RadarActivationEvent::Execute() {
 	// generate new radar user and add him to the channels
-	spdlog::info("Time: " + network_->get_clock() + "ms" + " ##### U1 is activated\n");
+	spdlog::info("Time: " + network_->GetClock() + "ms" + " ##### U1 is activated\n");
 	Client* radar = network_->GenerateClient(1);
 	network_->AddToBandwidth(radar);
+	for (int i = 0; i < network_->GetRadarChannelAmount(); i++) {
+		network_->UpdateAllUsersStat();
+	}
 	// plan end of service event for radar add it to eventlist
 	int event_t = 10000 + network_->clock_;
 	Event* end_event = new RadarEndOfServiceEvent(event_t, network_, event_list_);

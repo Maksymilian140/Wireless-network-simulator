@@ -10,34 +10,37 @@
 
 class Network {
 public:
-	Network(int l_amount, int p_amount, int k_amount, int size, int try_time, double lambda);
+	Network(int l_amount, int p_amount, int k_amount, int size, int try_time);
 	Client* GenerateClient(int group);
-	Client* get_first_from_buffer();
+	Client* GetFirstFromBuffer();
 	bool AddToBandwidth(Client* client);
 	Client* BufferPop();
 	void BandwidthClearRadar();
-	bool is_buffer_occupied();
+	bool IsBufferOccupied();
 	void AddToBuffer(Client* client);
 	void RemoveFromBandwidth(Client* client);
-	void Initialize();
+	void Initialize(double lambda);
 	void BandwidthPrint();
 	void BufferPrint();
-	int get_ratio();
-	double get_lambda();
-	std::string get_clock();
+	int GetRatio();
+	double GetLambda();
+	int GetRadarChannelAmount();
+	std::string GetClock();
 	void SaveBlockProbStat();
 	void UpdateBandwidthStat();
 	void UpdateUserStat(int group);
 	void UpdateUserLostStat(int group);
 	void UpdateServicedUsersStat();
+	void UpdateAllUsersStat();
 	void DisplayBlockProbability();
 	void DisplayServicedUsersStat();
 	void DisplayBandwidthStat();
+	double ReturnBlockProbability();
 	int clock_;
 private:
 	Bandwidth* bandwidth_;
 	Buffer* buffer_;
-	int u2_total_ = 0, u3_total_ = 0, u2_lost_ = 0, u3_lost_ = 0, u2_serviced_sum_ = 0, u3_serviced_sum_ = 0, stat_counter_ = 0;
+	int u2_total_ = 0, u3_total_ = 0, u2_lost_ = 0, u3_lost_ = 0, u2_serviced_sum_ = 0, u3_serviced_sum_ = 0, stat_counter_ = 0, all_users_ = 0;
 	double bandwidth_usage_counter_ = 0;
 	double lambda_;
 };

@@ -5,24 +5,24 @@ Channel::Channel(int client_group) : kClientGroup_(client_group) {
 	serviced_client_ = nullptr;
 }
 
-int Channel::get_client_group() {
-	if (serviced_client_ != nullptr) return serviced_client_->get_group();
+int Channel::GetClientGroup() {
+	if (serviced_client_ != nullptr) return serviced_client_->GetGroup();
 }
 
 void Channel::AddClient(Client* client) {
 	serviced_client_ = client;
 }
 
-bool Channel::is_free() {
+bool Channel::IsFree() {
 	if (serviced_client_ == nullptr) return true;
 	else return false;
 }
 
 void Channel::Release(bool kicked) {
-	if (kicked) spdlog::info("U" + std::to_string(serviced_client_->get_group()) + " is kicked out due to arrival of higher priority user\n");
+	if (kicked) spdlog::info("U" + std::to_string(serviced_client_->GetGroup()) + " is kicked out due to arrival of higher priority user\n");
 	serviced_client_ = nullptr;
 }
 
-Client* Channel::get_client() {
+Client* Channel::GetClient() {
 	return serviced_client_;
 }

@@ -2,10 +2,9 @@
 #include "event.h"
 #include <fstream>
 
-Network::Network(int l_amount, int p_amount, int k_amount, int size, int try_time, double lambda) {
+Network::Network(int l_amount, int p_amount, int k_amount, int size, int try_time) {
 	bandwidth_ = new Bandwidth(l_amount, p_amount, k_amount);
 	buffer_ = new Buffer(size, try_time);
-	lambda_ = lambda;
 }
 
 Client* Network::GenerateClient(int group) {
@@ -16,8 +15,8 @@ Client* Network::GenerateClient(int group) {
 	return new_client;
 }
 
-Client* Network::get_first_from_buffer() {
-	return buffer_->get_first();
+Client* Network::GetFirstFromBuffer() {
+	return buffer_->GetFirst();
 }
 
 bool Network::AddToBandwidth(Client* client) {
@@ -32,8 +31,8 @@ void Network::BandwidthClearRadar() {
 	bandwidth_->ClearRadar();
 }
 
-bool Network::is_buffer_occupied() {
-	return buffer_->is_occupied();
+bool Network::IsBufferOccupied() {
+	return buffer_->IsOccupied();
 }
 
 void Network::AddToBuffer(Client* c) {
@@ -45,9 +44,12 @@ void Network::RemoveFromBandwidth(Client* c) {
 	delete c;
 }
 
-void Network::Initialize() {
+void Network::Initialize(double lambda) {
 	bandwidth_->Clear();
 	buffer_->Clear();
+	u2_total_ = u3_total_ = u2_lost_ = u3_lost_ = u2_serviced_sum_ = u3_serviced_sum_ = stat_counter_ = all_users_ = 0;
+	bandwidth_usage_counter_ = 0;
+	lambda_ = lambda;
 }
 
 void Network::BandwidthPrint() {
@@ -68,21 +70,25 @@ void Network::UpdateUserLostStat(int group) {
 	else u3_lost_++;
 }
 
-int Network::get_ratio() {
+int Network::GetRatio() {
 	if (u2_total_ == 0 and u3_total_ == 0)
 		return 0;
 	else
 		return static_cast<int>((static_cast<double>(u2_total_) / (u2_total_ + u3_total_)) * 100);
 }
 
-std::string Network::get_clock() {
+std::string Network::GetClock() {
 	std::string time = std::to_string(static_cast<double>(clock_) / 1000);
 	time.resize(time.size() - 3);
 	return time;
 }
 
-double Network::get_lambda() {
+double Network::GetLambda() {
 	return lambda_;
+}
+
+int Network::GetRadarChannelAmount() {
+	return bandwidth_->GetRadarBandwidthSize();
 }
 
 void Network::SaveBlockProbStat() {
@@ -102,6 +108,10 @@ void Network::UpdateServicedUsersStat() {
 	stat_counter_++;
 }
 
+void Network::UpdateAllUsersStat() {
+	all_users_++;
+}
+
 void Network::DisplayServicedUsersStat() {
 	std::string u2_avg = std::to_string(static_cast<double>(u2_serviced_sum_) / stat_counter_);
 	std::string u3_avg = std::to_string(static_cast<double>(u3_serviced_sum_) / stat_counter_);
@@ -114,8 +124,8 @@ void Network::DisplayServicedUsersStat() {
 void Network::DisplayBlockProbability() {
 	std::string u2_E = std::to_string(static_cast<double> (u2_lost_ + bandwidth_->GetKickedStat().first) / u2_total_);
 	std::string u3_E = std::to_string(static_cast<double> (u3_lost_ + bandwidth_->GetKickedStat().second) / u3_total_);
-	u2_E.resize(u2_E.size() - 3);
-	u3_E.resize(u3_E.size() - 3);
+	//u2_E.resize(u2_E.size() - 6);
+	//u3_E.resize(u3_E.size() - 6);
 	spdlog::info("U2: E = " + u2_E + "\n");
 	spdlog::info("U3: E = " + u3_E + "\n");
 }
@@ -126,3 +136,6 @@ void Network::DisplayBandwidthStat() {
 	spdlog::info("Average bandwidth usage: " + b_usage + "%\n");
 }
 
+double Network::ReturnBlockProbability() {
+	return static_cast<double> (u2_lost_ + bandwidth_->GetKickedStat().first + u3_lost_ + bandwidth_->GetKickedStat().second) / all_users_;
+}

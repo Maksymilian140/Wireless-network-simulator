@@ -5,7 +5,7 @@ class Client
 {
 public:
 	Client(int group, int service_time);
-	int get_group(), get_service_time();
+	int GetGroup(), GetServiceTime();
 private:
 	const int kGroup_, kServiceTime_;
 };

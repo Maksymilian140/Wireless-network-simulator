@@ -15,6 +15,7 @@ public:
 	void Print();
 	double GetUsage();
 	int GetSize();
+	int GetRadarBandwidthSize();
 	void UpdateKickedStat(int group);
 	std::pair<int, int> GetKickedStat();
 	int CountServicedUsers(int group);

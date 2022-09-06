@@ -6,17 +6,17 @@
 #include <iostream>
 #include <spdlog/spdlog.h>
 
-Simulator::Simulator(int l_amount, int p_amount, int k_amount, int size, int try_time, double lambda) {
-	network_ = new Network(l_amount, p_amount, k_amount, size, try_time, lambda);
+Simulator::Simulator(int l_amount, int p_amount, int k_amount, int size, int try_time) {
+	network_ = new Network(l_amount, p_amount, k_amount, size, try_time);
 }
 
-void Simulator::RunSimulation(int time, int mode){
+double Simulator::RunSimulation(int time, int mode, double lambda){
 	network_->clock_ = 0;
-	network_->Initialize();
+	network_->Initialize(lambda);
 	if (mode == 2) spdlog::set_level(spdlog::level::debug);
 	spdlog::debug("Debuging enabled");
 	spdlog::info("##### Start of simulation #####\n");
-	auto compare_events = [](Event* left, Event* right) { return left->get_time() < right->get_time(); };
+	auto compare_events = [](Event* left, Event* right) { return left->GetTime() < right->GetTime(); };
 	Event::EventList event_list(compare_events);
 	Event* first_radar_event = new RadarActivationEvent(0, network_, &event_list);
 	Event* first_user_event = new UserActivationEvent(0, network_, &event_list);
@@ -35,10 +35,11 @@ void Simulator::RunSimulation(int time, int mode){
 			}
 		}
 		event_list.erase(event_iterator);
-		network_->clock_ = exc_event->get_time();
+		network_->clock_ = exc_event->GetTime();
 		exc_event->Execute();
 	}
 	network_->DisplayBlockProbability();
 	network_->DisplayServicedUsersStat();
 	network_->DisplayBandwidthStat();
+	return network_->ReturnBlockProbability();
 }
