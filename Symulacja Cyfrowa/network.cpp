@@ -94,7 +94,7 @@ int Network::GetRadarChannelAmount() {
 void Network::SaveBlockProbStat() {
 	std::ofstream output_file;
 	output_file.open("./Block_Probability_Statistics.txt", std::ios_base::app);
-	output_file << "lambda=" + std::to_string(lambda_) + ", E_U2=" + std::to_string(static_cast<double> (u2_lost_ + bandwidth_->GetKickedStat().first) / u2_total_) + ", E_U3=" + std::to_string(static_cast<double> (u3_lost_ + bandwidth_->GetKickedStat().second) / u3_total_) + "\n";
+	output_file << "lambda=" + std::to_string(lambda_) + ", E_U2=" + std::to_string(static_cast<double> (u2_lost_) / u2_total_) + ", E_U3=" + std::to_string(static_cast<double> (u3_lost_) / u3_total_) + "\n";
 	output_file.close();
 }
 
@@ -122,8 +122,8 @@ void Network::DisplayServicedUsersStat() {
 }
 
 void Network::DisplayBlockProbability() {
-	std::string u2_E = std::to_string(static_cast<double> (u2_lost_ + bandwidth_->GetKickedStat().first) / u2_total_);
-	std::string u3_E = std::to_string(static_cast<double> (u3_lost_ + bandwidth_->GetKickedStat().second) / u3_total_);
+	std::string u2_E = std::to_string(static_cast<double> (u2_lost_) / u2_total_);
+	std::string u3_E = std::to_string(static_cast<double> (u3_lost_) / u3_total_);
 	//u2_E.resize(u2_E.size() - 6);
 	//u3_E.resize(u3_E.size() - 6);
 	spdlog::info("U2: E = " + u2_E + "\n");
@@ -137,5 +137,5 @@ void Network::DisplayBandwidthStat() {
 }
 
 double Network::ReturnBlockProbability() {
-	return static_cast<double> (u2_lost_ + bandwidth_->GetKickedStat().first + u3_lost_ + bandwidth_->GetKickedStat().second) / all_users_;
+	return static_cast<double> (u2_lost_ + u3_lost_) / all_users_;
 }
