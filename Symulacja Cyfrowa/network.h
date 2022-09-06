@@ -36,7 +36,7 @@ public:
 	void DisplayServicedUsersStat();
 	void DisplayBandwidthStat();
 	double ReturnBlockProbability();
-	int clock_;
+	int clock_;			// in microseconds, that means 1 microsecond is equal to 1, 1 millisecond is equal to 1000, and 1 second is equal to 1000000 
 private:
 	Bandwidth* bandwidth_;
 	Buffer* buffer_;
