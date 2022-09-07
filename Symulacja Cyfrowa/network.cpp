@@ -14,8 +14,8 @@ Client* Network::GenerateClient(int group) {
 	return new_client;
 }
 
-Client* Network::get_first_from_buffer() {
-	return buffer_->get_first();
+Client* Network::GetFirstFromBuffer() {
+	return buffer_->GetFirst();
 }
 
 bool Network::AddToBandwidth(Client* client) {
@@ -30,8 +30,8 @@ void Network::BandwidthClearRadar() {
 	bandwidth_->ClearRadar();
 }
 
-bool Network::is_buffer_occupied() {
-	return buffer_->is_occupied();
+bool Network::IsBufferOccupied() {
+	return buffer_->IsOccupied();
 }
 
 void Network::AddToBuffer(Client* c) {
@@ -56,7 +56,7 @@ void Network::BufferPrint() {
 	buffer_->Print();
 }
 
-std::string Network::get_clock() {
+std::string Network::GetClock() {
 	std::string time = std::to_string(static_cast<double>(clock_) / 1000);
 	time.resize(time.size() - 3);
 	return time;

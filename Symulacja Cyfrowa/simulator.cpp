@@ -15,7 +15,7 @@ void Simulator::RunSimulation(int time, int mode){
 	if (mode == 2) spdlog::set_level(spdlog::level::debug);
 	spdlog::debug("Debuging enabled");
 	spdlog::info("##### Start of simulation #####\n");
-	auto compare_events = [](Event* left, Event* right) { return left->get_time() < right->get_time(); };
+	auto compare_events = [](Event* left, Event* right) { return left->GetTime() < right->GetTime(); };
 	Event::EventList event_list(compare_events);
 	Event* first_radar_event = new RadarActivationEvent(0, network_, &event_list);
 	Event* first_user_event = new UserActivationEvent(0, network_, &event_list);
@@ -32,7 +32,7 @@ void Simulator::RunSimulation(int time, int mode){
 			}
 		}
 		event_list.erase(event_iterator);
-		network_->clock_ = exc_event->get_time();
+		network_->clock_ = exc_event->GetTime();
 		exc_event->Execute();
 	}
 }

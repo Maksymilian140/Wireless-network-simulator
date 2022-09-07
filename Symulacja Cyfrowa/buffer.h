@@ -9,8 +9,8 @@ public:
 
 	void Add(Client* client);
 	Client* Pop();
-	Client* get_first();
-	bool is_occupied();
+	Client* GetFirst();
+	bool IsOccupied();
 	void Clear();
 	void Print();
 private:
