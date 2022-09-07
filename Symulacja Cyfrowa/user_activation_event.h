@@ -8,7 +8,6 @@ public:
 	void Execute() override;
 private:
 	EventList* event_list_ = nullptr;
-	UniformGenerator user_time_generator_ = UniformGenerator(44);
 };
 
 #endif

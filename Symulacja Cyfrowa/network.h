@@ -4,6 +4,7 @@
 #include "buffer.h"
 #include "channel.h"
 #include "bandwidth.h"
+#include "generator.h"
 #include <string>
 #include <list>
 #include <utility>
@@ -36,6 +37,7 @@ public:
 	void DisplayServicedUsersStat();
 	void DisplayBandwidthStat();
 	double ReturnBlockProbability();
+	double GenerateUserTime(double intensity);
 	int clock_;			// in microseconds, that means 1 microsecond is equal to 1, 1 millisecond is equal to 1000, and 1 second is equal to 1000000 
 private:
 	Bandwidth* bandwidth_;
@@ -43,6 +45,7 @@ private:
 	int u2_total_ = 0, u3_total_ = 0, u2_lost_ = 0, u3_lost_ = 0, u2_serviced_sum_ = 0, u3_serviced_sum_ = 0, stat_counter_ = 0, all_users_ = 0;
 	double bandwidth_usage_counter_ = 0;
 	double lambda_;
+	UniformGenerator user_time_generator_ = UniformGenerator(44);
 };
 
 #endif
