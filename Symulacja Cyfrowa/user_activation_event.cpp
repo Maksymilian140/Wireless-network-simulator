@@ -12,7 +12,7 @@ void UserActivationEvent::Execute() {
 	// if user succesfuly was added to the channel then plan end of service event for him
 	if (is_added) {
 		spdlog::info("Time: " + network_->GetClock() + "ms" + " ##### U" + std::to_string(client->GetGroup()) + " is added to channel\n");
-		int event_t = (rand() % 5000 + 1000) + network_->clock_;
+		int event_t = (rand() % 6000) + network_->clock_;
 		Event* next_request_event = new UserEndOfServiceEvent(event_t, network_, client);
 		event_list_->insert(next_request_event);
 	}
@@ -27,7 +27,7 @@ void UserActivationEvent::Execute() {
 	network_->BandwidthPrint();
 	network_->BufferPrint();
 	// plan next user activation event
-	int event_t = (rand() % 5000) + network_->clock_;
+	int event_t = (rand() % 500) + network_->clock_;
 	Event* next_request_event = new UserActivationEvent(event_t, network_, event_list_);
 	event_list_->insert(next_request_event);
 }
