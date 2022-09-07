@@ -9,7 +9,7 @@ int main()
 {
 	std::ofstream output_file;
 	output_file.open("E_A0.txt", std::ios::app);
-	int mode, mean = 150;
+	int mode, mean = 500;
 	double lambda, E = 0, last_E = 0;
 	std::cout << "Wybierz tryb:\n1) Tryb ciagly.\n2) Tryb krokowy (Debug)." << std::endl;
 	std::cin >> mode;
@@ -19,7 +19,7 @@ int main()
 		last_E = E;
 		E = simulation.RunSimulation(100000, mode, lambda);
 		output_file << static_cast<double>(mean) / 1000 << " " << E << "\n";
-		mean-=25;
+		mean--;
 	} while (E < 0.05);
 	spdlog::info("E=" + std::to_string(last_E) + " lambda = " + std::to_string(static_cast<double>(mean) / 1000) + "\n");
 	output_file.close();
