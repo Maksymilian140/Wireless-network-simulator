@@ -140,3 +140,7 @@ void Network::DisplayBandwidthStat() {
 double Network::ReturnBlockProbability() {
 	return static_cast<double> (u2_lost_ + bandwidth_->GetKickedStat().first + u3_lost_ + bandwidth_->GetKickedStat().second) / all_users_;
 }
+
+double Network::GenerateUserTime(double intensity) {
+	return user_time_generator_.Exponential(intensity);
+}
