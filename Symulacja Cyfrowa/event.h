@@ -11,7 +11,7 @@ class Event
 {
 public:
 	Event(int event_time, Network* network);
-	int get_time();
+	int GetTime();
 	void virtual Execute() = 0;
 
 	typedef std::multiset<Event*, std::function<bool(Event*, Event*)>> EventList;	

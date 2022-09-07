@@ -4,7 +4,7 @@
 RadarEndOfServiceEvent::RadarEndOfServiceEvent(int event_time, Network* network, EventList* event_list) : Event(event_time, network), event_list_(event_list) {}
 
 void RadarEndOfServiceEvent::Execute() {
-	spdlog::info("Time: " + network_->get_clock() + "ms" + " ##### U1 is deactivated\n");
+	spdlog::info("Time: " + network_->GetClock() + "ms" + " ##### U1 is deactivated\n");
 	// releasing users in all radar specified channels
 	network_->BandwidthClearRadar();
 	// generating random time of next event in range of 1-5 ms

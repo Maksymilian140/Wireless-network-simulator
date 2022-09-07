@@ -10,17 +10,17 @@ class Network {
 public:
 	Network(int l_amount, int p_amount, int k_amount, int size, int try_time);
 	Client* GenerateClient(int group);
-	Client* get_first_from_buffer();
+	Client* GetFirstFromBuffer();
 	bool AddToBandwidth(Client* client);
 	Client* BufferPop();
 	void BandwidthClearRadar();
-	bool is_buffer_occupied();
+	bool IsBufferOccupied();
 	void AddToBuffer(Client* client);
 	void RemoveFromBandwidth(Client* client);
 	void Initialize();
 	void BandwidthPrint();
 	void BufferPrint();
-	std::string get_clock();
+	std::string GetClock();
 	int clock_;
 private:
 	Bandwidth* bandwidth_;

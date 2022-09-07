@@ -24,7 +24,7 @@ Client* Buffer::Pop() {
 	}
 }
 
-Client* Buffer::get_first() {
+Client* Buffer::GetFirst() {
 	if (queue_of_clients_.empty()) {
 		return nullptr;
 	}
@@ -33,7 +33,7 @@ Client* Buffer::get_first() {
 	}
 }
 
-bool Buffer::is_occupied() {
+bool Buffer::IsOccupied() {
 	if (queue_of_clients_.size() == kSize_) return true;
 	else return false;
 }
@@ -54,7 +54,7 @@ void Buffer::Print() {
 	std::queue<Client*> temp_queue = queue_of_clients_;
 	for (int i = 0; i < kSize_; i++) {
 		if (temp_queue.size() != 0) {
-			group = static_cast<char>(temp_queue.front()->get_group() + 48);
+			group = static_cast<char>(temp_queue.front()->GetGroup() + 48);
 			printed_buffer += "#  U";
 			printed_buffer += group;
 			printed_buffer += "  ";

@@ -5,11 +5,11 @@ class Channel
 {
 public:
 	Channel(int client_group);
-	int get_client_group();
+	int GetClientGroup();
 	void AddClient(Client *client);
-	bool is_free();
+	bool IsFree();
 	void Release(bool kicked = false);
-	Client* get_client();
+	Client* GetClient();
 private:
 	Client* serviced_client_;
 	const int kClientGroup_;

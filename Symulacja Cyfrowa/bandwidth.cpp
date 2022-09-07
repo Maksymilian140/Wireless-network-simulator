@@ -34,7 +34,7 @@ std::pair <int, int> Bandwidth::GroupToIndexes(int group) {
 bool Bandwidth::IsFull(int group) {
 	std::pair <int, int> group_indexes = GroupToIndexes(group);
 	for (int i = group_indexes.first; i < group_indexes.second; i++) {
-		if (channels_[i]->is_free()) {
+		if (channels_[i]->IsFree()) {
 			return false;
 		}
 	}
@@ -42,22 +42,22 @@ bool Bandwidth::IsFull(int group) {
 }
 
 bool Bandwidth::AddToChannel(Client* client, int new_group, int attempt) {
-	if (new_group == 0) new_group = client->get_group();
+	if (new_group == 0) new_group = client->GetGroup();
 	std::pair <int, int> group_indexes = GroupToIndexes(new_group);
 	for (int i = group_indexes.first; i < group_indexes.second; i++) {
-		if (channels_[i]->is_free()) {
+		if (channels_[i]->IsFree()) {
 			channels_[i]->AddClient(client);
-			if (client->get_group() != 1) return true;
+			if (client->GetGroup() != 1) return true;
 		}
-		else if (channels_[i]->get_client_group() > client->get_group() && new_group == client->get_group() && (IsFull(new_group) || client->get_group() == 1)) {
+		else if (channels_[i]->GetClientGroup() > client->GetGroup() && new_group == client->GetGroup() && (IsFull(new_group) || client->GetGroup() == 1)) {
 			channels_[i]->Release(true);
 			channels_[i]->AddClient(client);
-			if (client->get_group() != 1) return true;
+			if (client->GetGroup() != 1) return true;
 		}
 	}
-	if (client->get_group() == 1) return true;
+	if (client->GetGroup() == 1) return true;
 	else {
-		if (client->get_group() == 2) {
+		if (client->GetGroup() == 2) {
 			switch (attempt) {
 				case 1:
 					AddToChannel(client, 3, ++attempt);
@@ -69,7 +69,7 @@ bool Bandwidth::AddToChannel(Client* client, int new_group, int attempt) {
 					return false;
 			}
 		}
-		if (client->get_group() == 3) {
+		if (client->GetGroup() == 3) {
 			switch (attempt) {
 				case 1:
 					AddToChannel(client, 1, ++attempt);
@@ -92,7 +92,7 @@ void Bandwidth::ClearRadar() {
 
 void Bandwidth::RemoveUser(Client* client) {
 	for (int i = 0; i < kKAmount_; i++) {
-		if (channels_[i]->get_client() == client) {
+		if (channels_[i]->GetClient() == client) {
 			channels_[i]->Release();
 			return;
 		}
@@ -101,7 +101,7 @@ void Bandwidth::RemoveUser(Client* client) {
 
 void Bandwidth::Clear() {
 	for (int i = 0; i < 20; i++) {
-		if (!channels_[i]->is_free()) channels_[i]->Release();
+		if (!channels_[i]->IsFree()) channels_[i]->Release();
 	}
 }
 
@@ -113,8 +113,8 @@ void Bandwidth::Print() {
 	std::string printed_bandwidth = "";
 	char group = '0';
 	for (int i = 0; i < 20; i++) {
-		if (channels_[i]->get_client() != nullptr) {
-			group = static_cast<char>(channels_[i]->get_client_group() + 48);
+		if (channels_[i]->GetClient() != nullptr) {
+			group = static_cast<char>(channels_[i]->GetClientGroup() + 48);
 			printed_bandwidth += "#  U";
 			printed_bandwidth += group;
 			printed_bandwidth += "  ";

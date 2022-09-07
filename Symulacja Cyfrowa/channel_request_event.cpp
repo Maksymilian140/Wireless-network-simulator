@@ -5,14 +5,14 @@ ChannelRequestEvent::ChannelRequestEvent(int event_time, Network* network, Event
 
 void ChannelRequestEvent::Execute() {
 	// checking if there is available channel
-	Client* client = network_->get_first_from_buffer();
+	Client* client = network_->GetFirstFromBuffer();
 	if (client != nullptr){
 	bool is_added = network_->AddToBandwidth(client);
 	// if there is then remove client from buffer and plan end of service event for him
 		if (is_added) {
-			spdlog::info("Time: " + network_->get_clock() + "ms" + " ##### U" + std::to_string(client->get_group()) + " is added to channel from buffer\n");
+			spdlog::info("Time: " + network_->GetClock() + "ms" + " ##### U" + std::to_string(client->GetGroup()) + " is added to channel from buffer\n");
 			network_->BufferPop();
-			int event_t = client->get_service_time() + network_->clock_;
+			int event_t = client->GetServiceTime() + network_->clock_;
 			Event* service_event;
 			service_event = new UserEndOfServiceEvent(event_t, network_, client); 
 			event_list_->insert(service_event);
