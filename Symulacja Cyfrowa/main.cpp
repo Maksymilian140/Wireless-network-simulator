@@ -17,7 +17,7 @@ int main()
 	do {
 		lambda = static_cast<double>(1) / mean;
 		last_E = E;
-		E = simulation.RunSimulation(100000, mode, lambda);
+		E = simulation.RunSimulation(100000, mode, lambda, rand() % 1000 + 10);
 		output_file << static_cast<double>(mean) / 1000 << " " << E << "\n";
 		mean--;
 	} while (E < 0.05);

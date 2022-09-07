@@ -20,7 +20,7 @@ public:
 	bool IsBufferOccupied();
 	void AddToBuffer(Client* client);
 	void RemoveFromBandwidth(Client* client);
-	void Initialize(double lambda);
+	void Initialize(double lambda, int seed);
 	void BandwidthPrint();
 	void BufferPrint();
 	int GetRatio();
@@ -45,7 +45,7 @@ private:
 	int u2_total_ = 0, u3_total_ = 0, u2_lost_ = 0, u3_lost_ = 0, u2_serviced_sum_ = 0, u3_serviced_sum_ = 0, stat_counter_ = 0, all_users_ = 0;
 	double bandwidth_usage_counter_ = 0;
 	double lambda_;
-	UniformGenerator user_time_generator_ = UniformGenerator(44);
+	UniformGenerator* user_time_generator_;
 };
 
 #endif
