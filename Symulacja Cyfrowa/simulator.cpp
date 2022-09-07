@@ -10,9 +10,9 @@ Simulator::Simulator(int l_amount, int p_amount, int k_amount, int size, int try
 	network_ = new Network(l_amount, p_amount, k_amount, size, try_time);
 }
 
-double Simulator::RunSimulation(int time, int mode, double lambda){
+double Simulator::RunSimulation(int time, int mode, double lambda, int seed){
 	network_->clock_ = 0;
-	network_->Initialize(lambda);
+	network_->Initialize(lambda, seed);
 	if (mode == 2) spdlog::set_level(spdlog::level::debug);
 	spdlog::debug("Debuging enabled");
 	spdlog::info("##### Start of simulation #####\n");

@@ -44,12 +44,13 @@ void Network::RemoveFromBandwidth(Client* c) {
 	delete c;
 }
 
-void Network::Initialize(double lambda) {
+void Network::Initialize(double lambda, int seed) {
 	bandwidth_->Clear();
 	buffer_->Clear();
 	u2_total_ = u3_total_ = u2_lost_ = u3_lost_ = u2_serviced_sum_ = u3_serviced_sum_ = stat_counter_ = all_users_ = 0;
 	bandwidth_usage_counter_ = 0;
 	lambda_ = lambda;
+	user_time_generator_ = new UniformGenerator(seed);
 }
 
 void Network::BandwidthPrint() {
@@ -142,5 +143,5 @@ double Network::ReturnBlockProbability() {
 }
 
 double Network::GenerateUserTime(double intensity) {
-	return user_time_generator_.Exponential(intensity);
+	return user_time_generator_->Exponential(intensity);
 }
