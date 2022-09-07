@@ -134,6 +134,7 @@ void Network::DisplayBandwidthStat() {
 	std::string b_usage = std::to_string((bandwidth_usage_counter_ / stat_counter_) * 100);
 	b_usage.resize(b_usage.size() - 4);
 	spdlog::info("Average bandwidth usage: " + b_usage + "%\n");
+	spdlog::info("Total users amount: " + std::to_string(all_users_) + "\n");
 }
 
 double Network::ReturnBlockProbability() {
