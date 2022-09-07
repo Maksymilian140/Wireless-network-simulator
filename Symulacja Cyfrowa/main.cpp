@@ -9,20 +9,20 @@ int main()
 {
 	std::ofstream output_file;
 	output_file.open("E_A.txt", std::ios::app);
-	int mode, intensity = 150;
+	int mode, mean = 500;
 	double lambda, E = 0, last_E = 0;
 	std::cout << "Wybierz tryb:\n1) Tryb ciagly.\n2) Tryb krokowy (Debug)." << std::endl;
 	std::cin >> mode;
 	Simulator simulation(10, 5, 20, 5, 200);
 	do {
-		lambda = static_cast<double> (1) / intensity;
+		lambda = static_cast<double> (1) / mean;
 		last_E = E;
 		E = simulation.RunSimulation(100000, mode, lambda);
-		output_file << intensity << " " << E << "\n";
-		intensity-=25;
+		output_file << mean << " " << E << "\n";
+		mean--;
 	} while (E < 0.05);
 
-	spdlog::info("E=" + std::to_string(last_E) + " lambda = " + std::to_string(intensity) + "\n");
+	spdlog::info("E=" + std::to_string(last_E) + " lambda = " + std::to_string(mean) + "\n");
 	output_file.close();
 	return 0;
 }
