@@ -29,7 +29,6 @@ void UserActivationEvent::Execute() {
 	}
 	network_->BandwidthPrint();
 	network_->BufferPrint();
-	std::cout << network_->GetRatio() << std::endl;
 	network_->UpdateUserStat(group);
 	// plan next user activation event
 	int event_t = (rand() % 500) + network_->clock_;
