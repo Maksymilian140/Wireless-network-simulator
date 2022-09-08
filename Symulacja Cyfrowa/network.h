@@ -20,11 +20,14 @@ public:
 	void Initialize();
 	void BandwidthPrint();
 	void BufferPrint();
+	void UpdateUserStat(int group);
 	std::string GetClock();
+	int GetRatio();
 	int clock_;
 private:
 	Bandwidth* bandwidth_;
 	Buffer* buffer_;
+	int u2_total_ = 0, u3_total_ = 0;
 };
 
 #endif
