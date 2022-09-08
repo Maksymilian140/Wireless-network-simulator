@@ -61,3 +61,15 @@ std::string Network::GetClock() {
 	time.resize(time.size() - 3);
 	return time;
 }
+
+void Network::UpdateUserStat(int group) {
+	if (group == 2) u2_total_++;
+	else u3_total_++;
+}
+
+int Network::GetRatio() {
+	if (u2_total_ == 0 and u3_total_ == 0)
+		return 0;
+	else
+		return static_cast<int>((static_cast<double>(u2_total_) / (u2_total_ + u3_total_)) * 100);
+}

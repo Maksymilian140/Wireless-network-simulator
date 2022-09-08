@@ -5,7 +5,10 @@ UserActivationEvent::UserActivationEvent(int event_time, Network* network, Event
 
 void UserActivationEvent::Execute() {
 	// draw group number and generate new user and add him to bandwidth
-	int group = rand() % 2 + 2;
+	int group;
+	if (network_->GetRatio() == 60 or network_->GetRatio() == 0) group = rand() % 2 + 2;
+	if (network_->GetRatio() < 60) group = 2;
+	else group = 3;
 	spdlog::info("Time: " + network_->GetClock() + "ms" + " ##### U" + std::to_string(group) + " is generated\n");
 	Client* client = network_->GenerateClient(group);
 	bool is_added = network_->AddToBandwidth(client);
@@ -26,6 +29,7 @@ void UserActivationEvent::Execute() {
 	}
 	network_->BandwidthPrint();
 	network_->BufferPrint();
+	network_->UpdateUserStat();
 	// plan next user activation event
 	int event_t = (rand() % 500) + network_->clock_;
 	Event* next_request_event = new UserActivationEvent(event_t, network_, event_list_);
