@@ -29,7 +29,7 @@ void UserActivationEvent::Execute() {
 	}
 	network_->BandwidthPrint();
 	network_->BufferPrint();
-	network_->UpdateUserStat();
+	network_->UpdateUserStat(group);
 	// plan next user activation event
 	int event_t = (rand() % 500) + network_->clock_;
 	Event* next_request_event = new UserActivationEvent(event_t, network_, event_list_);
