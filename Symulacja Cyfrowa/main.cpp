@@ -12,7 +12,7 @@ int main()
 	int mode, mean = 500;
 	double lambda, E = 0, last_E = 0;
 	std::cout << "Wybierz tryb:\n1) Tryb ciagly.\n2) Tryb krokowy (Debug)." << std::endl;
-	std::cin >> mode;
+	std::cin >> mode;		// in debug mode press 'enter' key to continue simulation
 	Simulator simulation(10, 5, 20, 5, 200);
 	do {
 		lambda = static_cast<double>(1) / mean;
