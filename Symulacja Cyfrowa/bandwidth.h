@@ -6,7 +6,7 @@ class Bandwidth
 {
 public:
 	Bandwidth(int l_amount, int p_amount, int k_amount);
-	bool AddToChannel(Client* client, int new_group = 0, int attempt = 1);
+	bool AddToChannel(Client* client);
 	std::pair <int, int> GroupToIndexes(int group);
 	bool IsFull(int group);
 	void ClearRadar();
