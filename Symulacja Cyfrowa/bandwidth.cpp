@@ -70,6 +70,7 @@ bool Bandwidth::AddToChannel(Client* client) {
 				case 2:
 					new_group = 1;
 					attempt++;
+					break;
 				default:
 					return false;
 				}
