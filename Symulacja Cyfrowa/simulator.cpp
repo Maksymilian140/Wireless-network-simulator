@@ -10,18 +10,24 @@ Simulator::Simulator(int l_amount, int p_amount, int k_amount, int size, int try
 	network_ = new Network(l_amount, p_amount, k_amount, size, try_time);
 }
 
-double Simulator::RunSimulation(int time, int mode, double lambda, int seed){
+void Simulator::DisplayStatistics() {
+	network_->DisplayBlockProbability();
+	network_->DisplayServicedUsersStat();
+	network_->DisplayBandwidthStat();
+}
+
+double Simulator::RunSimulation(int time, int phase, int mode, double lambda, int seed){
 	network_->clock_ = 0;
 	network_->Initialize(lambda, seed);
 	if (mode == 2) spdlog::set_level(spdlog::level::debug);
 	spdlog::debug("Debuging enabled");
-	spdlog::info("##### Start of simulation #####\n");
+	spdlog::debug("##### Start of simulation #####\n");
 	auto compare_events = [](Event* left, Event* right) { return left->GetTime() < right->GetTime(); };
 	Event::EventList event_list(compare_events);
 	Event* first_radar_event = new RadarActivationEvent(0, network_, &event_list);
 	Event* first_user_event = new UserActivationEvent(0, network_, &event_list);
 	Event* channel_request_start_event = new ChannelRequestEvent(200, network_, &event_list);
-	Event* gather_statistics_event = new GatherStatisticsEvent(1000, network_, &event_list);
+	Event* gather_statistics_event = new GatherStatisticsEvent(phase, network_, &event_list);
 	event_list.insert(first_radar_event);
 	event_list.insert(first_user_event);
 	event_list.insert(channel_request_start_event);
@@ -38,8 +44,8 @@ double Simulator::RunSimulation(int time, int mode, double lambda, int seed){
 		network_->clock_ = exc_event->GetTime();
 		exc_event->Execute();
 	}
-	network_->DisplayBlockProbability();
-	network_->DisplayServicedUsersStat();
-	network_->DisplayBandwidthStat();
+	//network_->DisplayBlockProbability();
+	//network_->DisplayServicedUsersStat();
+	//network_->DisplayBandwidthStat();
 	return network_->ReturnBlockProbability();
 }

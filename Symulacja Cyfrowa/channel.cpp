@@ -19,7 +19,7 @@ bool Channel::IsFree() {
 }
 
 void Channel::Release(bool kicked) {
-	if (kicked) spdlog::info("U" + std::to_string(serviced_client_->GetGroup()) + " is kicked out due to arrival of higher priority user\n");
+	if (kicked) spdlog::debug("U" + std::to_string(serviced_client_->GetGroup()) + " is kicked out due to arrival of higher priority user\n");
 	serviced_client_ = nullptr;
 }
 

@@ -10,7 +10,7 @@ void ChannelRequestEvent::Execute() {
 	bool is_added = network_->AddToBandwidth(client);
 	// if there is then remove client from buffer and plan end of service event for him
 		if (is_added) {
-			spdlog::info("Time: " + network_->GetClock() + "ms" + " ##### U" + std::to_string(client->GetGroup()) + " is added to channel from buffer\n");
+			spdlog::debug("Time: " + network_->GetClock() + "ms" + " ##### U" + std::to_string(client->GetGroup()) + " is added to channel from buffer\n");
 			network_->BufferPop();
 			int event_t = client->GetServiceTime() + network_->clock_;
 			Event* service_event;

@@ -5,7 +5,7 @@ RadarActivationEvent::RadarActivationEvent(int event_time, Network* network, Eve
 
 void RadarActivationEvent::Execute() {
 	// generate new radar user and add him to the channels
-	spdlog::info("Time: " + network_->GetClock() + "ms" + " ##### U1 is activated\n");
+	spdlog::debug("Time: " + network_->GetClock() + "ms" + " ##### U1 is activated\n");
 	Client* radar = network_->GenerateClient(1);
 	network_->AddToBandwidth(radar);
 	for (int i = 0; i < network_->GetRadarChannelAmount(); i++) {

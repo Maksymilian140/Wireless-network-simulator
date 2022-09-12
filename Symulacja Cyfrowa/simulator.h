@@ -5,7 +5,8 @@ class Simulator
 {
 public:
 	Simulator(int l_amount, int p_amount, int k_amount, int size, int try_time);
-	double RunSimulation(int time, int mode, double lambda, int seed);
+	double RunSimulation(int time, int phase, int mode, double lambda, int seed);
+	void DisplayStatistics();
 private:
 	Network* network_;
 };
