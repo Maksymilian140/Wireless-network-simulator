@@ -12,19 +12,21 @@ void UserActivationEvent::Execute() {
 	else group = 3;
 	spdlog::debug("Time: " + network_->GetClock() + "ms" + " ##### U" + std::to_string(group) + " is generated\n");
 	Client* client = network_->GenerateClient(group);
-	network_->UpdateAllUsersStat();
+	if (network_->clock_ > network_->phase_time_)
+		network_->UpdateAllUsersStat();
 	bool is_added = network_->AddToBandwidth(client);
 	// if user succesfuly was added to the channel then plan end of service event for him
 	if (is_added) {
 		spdlog::debug("Time: " + network_->GetClock() + "ms" + " ##### U" + std::to_string(client->GetGroup()) + " is added to channel\n");
-		int event_t = network_->GenerateUserTime(0.001) + network_->clock_;
+		int event_t = static_cast<int>(network_->GenerateUserTime(0.001)) + network_->clock_;
 		Event* next_request_event = new UserEndOfServiceEvent(event_t, network_, client);
 		event_list_->insert(next_request_event);
 	}
 	else {
 		// if buffer is occupied then drop the user else add him to the buffer
 		if (network_->IsBufferOccupied()) {
-			network_->UpdateUserLostStat(group);
+			if (network_->clock_ > network_->phase_time_)
+				network_->UpdateUserLostStat(group);
 			spdlog::debug("Time: " + network_->GetClock() + "ms" + " ##### U" + std::to_string(group) + " is dropped due to lack of available channels.\n");
 			delete client;
 		}
@@ -33,12 +35,13 @@ void UserActivationEvent::Execute() {
 			network_->AddToBuffer(client);
 		}
 	}
-	network_->UpdateUserStat(group);
+	if (network_->clock_ > network_->phase_time_)
+		network_->UpdateUserStat(group);
 	spdlog::debug("Time: " + network_->GetClock() + "ms" + " ##### U2/U3 ratio: " + std::to_string(network_->GetRatio()) + " % \n");
 	network_->BandwidthPrint();
 	network_->BufferPrint();
 	// plan next user activation event
-	int event_t = network_->GenerateUserTime(network_->GetLambda()) + network_->clock_;
+	int event_t = static_cast<int>(network_->GenerateUserTime(network_->GetLambda())) + network_->clock_;
 	Event* next_request_event = new UserActivationEvent(event_t, network_, event_list_);
 	event_list_->insert(next_request_event);
 }

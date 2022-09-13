@@ -44,8 +44,10 @@ void Network::RemoveFromBandwidth(Client* c) {
 	delete c;
 }
 
-void Network::Initialize(double lambda, int seed) {
+void Network::Initialize(double lambda, int seed, int phase) {
+	phase_time_ = phase;
 	bandwidth_->Clear();
+	bandwidth_->SetPhase(phase);
 	buffer_->Clear();
 	u2_total_ = u3_total_ = u2_lost_ = u3_lost_ = u2_serviced_sum_ = u3_serviced_sum_ = stat_counter_ = all_users_ = 0;
 	bandwidth_usage_counter_ = 0;

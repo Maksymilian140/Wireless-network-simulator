@@ -22,7 +22,7 @@ int main()
 	do {
 		lambda = static_cast<double> (1) / mean;
 		last_E = E;
-		E = simulation.RunSimulation(sim_end_time, phase_end_time, mode, lambda, rand() % 1000 + 10);
+		E = simulation.RunSimulation(sim_end_time*1000, phase_end_time*1000, mode, lambda, rand() % 1000 + 10);
 		output_file << mean << " " << E << "\n";
 		mean--;
 	} while (E < 0.05);

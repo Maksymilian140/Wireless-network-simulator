@@ -169,3 +169,7 @@ void Bandwidth::UpdateKickedStat(int group) {
 	if (group == 2) u2_kicked_++;
 	else u3_kicked_++;
 }
+
+void Bandwidth::SetPhase(int phase) {
+	phase_time_ = phase;
+}

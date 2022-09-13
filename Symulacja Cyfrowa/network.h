@@ -20,7 +20,7 @@ public:
 	bool IsBufferOccupied();
 	void AddToBuffer(Client* client);
 	void RemoveFromBandwidth(Client* client);
-	void Initialize(double lambda, int seed);
+	void Initialize(double lambda, int seed, int phase);
 	void BandwidthPrint();
 	void BufferPrint();
 	int GetRatio();
@@ -38,7 +38,7 @@ public:
 	void DisplayBandwidthStat();
 	double ReturnBlockProbability();
 	double GenerateUserTime(double intensity);
-	int clock_;
+	int clock_, phase_time_;
 private:
 	Bandwidth* bandwidth_;
 	Buffer* buffer_;

@@ -9,7 +9,8 @@ void RadarActivationEvent::Execute() {
 	Client* radar = network_->GenerateClient(1);
 	network_->AddToBandwidth(radar);
 	for (int i = 0; i < network_->GetRadarChannelAmount(); i++) {
-		network_->UpdateAllUsersStat();
+		if (network_->clock_ > network_->phase_time_)
+			network_->UpdateAllUsersStat();
 	}
 	// plan end of service event for radar add it to eventlist
 	int event_t = 10000 + network_->clock_;

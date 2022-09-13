@@ -18,7 +18,7 @@ void Simulator::DisplayStatistics() {
 
 double Simulator::RunSimulation(int time, int phase, int mode, double lambda, int seed){
 	network_->clock_ = 0;
-	network_->Initialize(lambda, seed);
+	network_->Initialize(lambda, seed, phase);
 	if (mode == 2) spdlog::set_level(spdlog::level::debug);
 	spdlog::debug("Debuging enabled");
 	spdlog::debug("##### Start of simulation #####\n");
